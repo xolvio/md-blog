@@ -30,7 +30,7 @@ And for SEO purposes, you need to set the following settings:
 Currently this package doesn't have an editor! That part is coming when time permits. You can do
 this in the meantime. Create a file called `blogLoader.js` (or similar) with this setup:
 
-```
+```javascript
 Meteor.startup(function () {
 
   // this is a new deployment so empty the blog
