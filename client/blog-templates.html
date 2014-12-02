@@ -1,0 +1,33 @@
+<template name="blogList">
+    <section class="blog-list">
+        <section class="blog-list">
+          {{#each this}}
+              <section class="blog-post">
+                  <header>
+                      <h2><a href="{{pathFor route='blogPost'}}">{{title}}</a></h2>
+                      <span class="info">Posted by <span class="author">{{{author}}}</span>
+                          <time>{{blogDate date}}</time>
+                      </span>
+                  </header>
+                  <summary>
+                    {{{summary}}} <a href="{{pathFor route='blogPost'}}">Read more <i class="fa fa-long-arrow-right"></i></a>
+                  </summary>
+              </section>
+          {{/each}}
+        </section>
+    </section>
+</template>
+
+<template name="blogPost">
+    <section class="blog-post">
+        <header>
+            <h1>{{{title}}}</h1>
+            <span class="info">Posted by <span class="author">{{{author}}}</span>
+                <time>{{blogDate date}}</time>
+            </span>
+        </header>
+        <article>
+          {{{content}}}
+        </article>
+    </section>
+</template>
