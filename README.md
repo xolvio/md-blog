@@ -1,5 +1,7 @@
-This is the blog package currently used on The Meteor Testing Manual.
+Xolv.io MD-Blog
+===============
 
+This is the blog package currently used on The Meteor Testing Manual.
 
 It will give you a blog on your site. You will have two new routes: `/blog` and `/blog/:slug`.
 
@@ -57,3 +59,8 @@ Meteor.startup(function () {
 and create blog entries as markdown docs under `/private/blog`
 
 Pull requests are welcome to add an editor :)
+
+
+## Help Wanted
+
+Use [hallojs](http://hallojs.org/)
