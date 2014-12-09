@@ -1,8 +1,18 @@
-.blog-list {
+section.blog-controls {
+  position: absolute;
+  margin-top: -35px;
+  #mdblog-publish {
+  }
+}
+#mdblog-new {
+  position: absolute;
+  margin-top: -40px;
+  right: 10px;
+}
 
+.blog-list {
   margin: 20px;
   .blog-post {
-
     margin: 50px 0;
     border-bottom: 2px solid rgba(0,0,0,0.2);
 
@@ -43,6 +53,16 @@
     }
   }
   article {
+    &.editing {
+      float: left;
+      background-color: rgba(0,0,0,.1);
+      width: 49%;
+      margin-top: 1em;
+    }
+  }
+  #mdblog-clone {
+    float: right;
+    width: 49%;
   }
 }
 

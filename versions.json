@@ -1,6 +1,14 @@
 {
   "dependencies": [
     [
+      "accounts-base",
+      "1.1.2"
+    ],
+    [
+      "alanning:roles",
+      "1.2.13"
+    ],
+    [
       "application-configuration",
       "1.0.3"
     ],
@@ -39,10 +47,6 @@
     [
       "chuangbo:marked",
       "0.3.5"
-    ],
-    [
-      "coffeescript",
-      "1.0.4"
     ],
     [
       "ddp",
@@ -86,35 +90,35 @@
     ],
     [
       "iron:controller",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "iron:core",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "iron:dynamic-template",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "iron:layout",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "iron:location",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "iron:middleware-stack",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "iron:router",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "iron:url",
-      "1.0.0"
+      "1.0.3"
     ],
     [
       "jquery",
@@ -137,12 +141,12 @@
       "1.0.11"
     ],
     [
-      "logging",
-      "1.0.5"
+      "localstorage",
+      "1.0.1"
     ],
     [
-      "manuelschoebel:ms-seo",
-      "0.3.0"
+      "logging",
+      "1.0.5"
     ],
     [
       "meteor",
@@ -205,6 +209,10 @@
       "1.0.2"
     ],
     [
+      "service-configuration",
+      "1.0.2"
+    ],
+    [
       "session",
       "1.0.4"
     ],
@@ -247,6 +255,10 @@
     [
       "xolvio:hljs",
       "0.0.1"
+    ],
+    [
+      "yasinuslu:blaze-meta",
+      "0.2.1"
     ]
   ],
   "pluginDependencies": [],
