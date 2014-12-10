@@ -3,7 +3,7 @@
       {{#if isInRole 'mdblog-author'}}
           <section class="blog-controls">
               <button title="New" id="mdblog-new" class="{{mdBlogElementClasses 'button'}}">
-                  <i class="fa fa-pencil-square-o"></i></button>
+                  <i class="fa fa-pencil-square-o"></i> New</button>
           </section>
       {{/if}}
       {{#each this}}
@@ -32,27 +32,27 @@
     <section class="blog-controls">
       {{#if modified}}
           <button title="Save" id="mdblog-save" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-floppy-o"></i>
+              <i class="fa fa-floppy-o"> Save</i>
           </button>
       {{/if}}
       {{#unless published}}
           <button title="Publish" id="mdblog-publish" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-play"></i></button>
+              <i class="fa fa-play"></i> Publish</button>
       {{/unless}}
       {{#if published}}
           <button title="Unpublish" id="mdblog-unpublish" class="{{mdBlogElementClasses
-          'button'}}"><i class="fa fa-stop"></i></button>
+          'button'}}"><i class="fa fa-stop"></i> Unpublish</button>
       {{/if}}
       {{#unless archived}}
           <button title="Archive" id="mdblog-archive" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-eye-slash"></i></button>
+              <i class="fa fa-eye-slash"></i> Archive</button>
       {{/unless}}
       {{#if archived}}
           <button title="Unarchive" id="mdblog-unarchive" class="{{mdBlogElementClasses 'button'}}">
               <i class="fa fa-eye"></i></button>
       {{/if}}
         <button title="Delete" id="mdblog-delete" class="{{mdBlogElementClasses 'button'}}">
-            <i class="fa fa-trash"></i></button>
+            <i class="fa fa-trash"></i> Unarchive</button>
     </section>
 </template>
 
