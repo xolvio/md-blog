@@ -1,0 +1,116 @@
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="An example page showing you how to use Xolv.io's markdown
+    powered blog.">
+
+</head>
+
+<template name="header">
+    <div class="header">
+        <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
+            <a class="pure-menu-heading" href="http://xolv.io" target="_blank">Xolv.io</a>
+            <ul>
+                <li class="pure-menu-selected"><a href="/">Home</a></li>
+                <li><a href="/blog">Blog</a></li>
+                <li>{{> atNavButton}}</li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="mainLayout">
+  {{> header}}
+  {{> yield}}
+</template>
+
+<template name="splash">
+    <div class="splash-container">
+        <div class="splash">
+            <h1 class="splash-head"><a href="https://atmospherejs.com/xolvio/md-blog">xolvio:md-blog</a></h1>
+            <p class="splash-subhead">
+                A drop-in markdown blog for your Meteor app.
+            </p>
+
+            <p>
+                <a href="/blog" class="pure-button pure-button-primary">Try It</a>
+            </p>
+        </div>
+    </div>
+</template>
+
+<template name="home">
+    {{> splash}}
+    <div class="content-wrapper">
+
+        <div class="content">
+            <h2 class="content-head is-center">Unopinionated and customizable.</h2>
+
+            <div class="pure-g">
+                <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+
+                    <h3 class="content-subhead">
+                        <i class="fa fa-rocket"></i>
+                        Choose your own CSS Framework
+                    </h3>
+
+                    <p>
+                        This site uses the <a href="http://purecss.io" target="_blank">Pure
+                        .css</a> responsive framework, but you can use anything you like from
+                        Bootstrap to Foundation.
+                    </p>
+                </div>
+                <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                    <h3 class="content-subhead">
+                        <i class="fa fa-mobile"></i>
+                        Responsive Layouts
+                    </h3>
+
+                    <p>
+                        Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+                    </p>
+                </div>
+                <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                    <h3 class="content-subhead">
+                        <i class="fa fa-th-large"></i>
+                        Modular
+                    </h3>
+
+                    <p>
+                        Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+                    </p>
+                </div>
+                <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
+                    <h3 class="content-subhead">
+                        <i class="fa fa-check-square-o"></i>
+                        Plays Nice
+                    </h3>
+
+                    <p>
+                        Phasellus eget enim eu lectus faucibus vestibulum. Suspendisse sodales pellentesque elementum.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="ribbon l-box-lrg pure-g">
+            <div class="l-box-lrg is-center pure-u-1 pure-u-md-1-2 pure-u-lg-2-5">
+                <img class="pure-img-responsive" alt="File Icons" width="300" src="/img/common/file-icons.png">
+            </div>
+            <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
+
+                <h2 class="content-head content-head-ribbon">Laboris nisi ut aliquip.</h2>
+
+                <p>
+                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                    tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                    quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor.
+                </p>
+            </div>
+        </div>
+
+
+    </div>
+
+</template>

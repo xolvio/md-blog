@@ -1,0 +1,1 @@
+Blog = new Mongo.Collection('blog');
