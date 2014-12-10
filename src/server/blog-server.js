@@ -13,7 +13,7 @@
   function _upsertBlogPost (blog) {
     blog.published = blog.published ? blog.published : false;
     blog.archived = blog.archived ? blog.archived : false;
-    blog.slug = _replaceAll(' ', '-', blog.title.toLowerCase());
+    blog.slug = _getSlug(blog.title);
 
     // if no id was provided, this is a new blog entry so we should create an ID here to extract
     // a short ID before this blog is inserted into the DB
@@ -46,7 +46,7 @@
         throw new Meteor.Error(403, "Not authorized to author blog posts");
       }
     },
-    'mdBlogCount': function() {
+    'mdBlogCount': function () {
       if (Roles.userIsInRole(this.userId, ['mdblog-author'])) {
         return Blog.find().count();
       } else {
@@ -55,8 +55,23 @@
     }
   });
 
+  function _getSlug (title) {
+
+    var replace = [
+      ' ', '#', '%', '"', ':', '/',
+      '^', '`', '[', ']', '{', '}', '<', '>',
+      ';', '@', '&', '=', '+', '$', '|', ','
+    ];
+
+    var slug = title.toLowerCase();
+    for (var i = 0; i < replace.length; i++) {
+      slug = _replaceAll(replace[i], '-', slug);
+    }
+    return slug;
+  }
+
   function _replaceAll (find, replace, str) {
-    return str.replace(new RegExp(find, 'g'), replace);
+    return str.replace(new RegExp('\\' + find, 'g'), replace);
   }
 
 
