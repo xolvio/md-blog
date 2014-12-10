@@ -1,8 +1,22 @@
 {
   "public": {
     "blog": {
-      "name": "The Name Of Your Blog",
-      "Description": "Get the latest news on what's happening in the Meteor testing landscape."
+      "name": "The Meteor Testing Manual Blog",
+      "description": "Get the latest news on what's happening in the Meteor testing landscape.",
+      "prettify": {
+        "syntax-highlighting": true,
+        "element-classes": [
+          {
+            "locator": "img",
+            "classes": ["pure-img"]
+          },
+          {
+            "locator": "button",
+            "classes": ["pure-button"]
+          }
+        ]
+      },
+      "sortBy": {"date": -1}
     }
   }
 }

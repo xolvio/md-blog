@@ -1,7 +1,7 @@
 Package.describe({
   name: 'xolvio:md-blog',
   summary: 'A markdown powered blog',
-  version: '0.2.0',
+  version: '0.2.1',
   git: 'https://github.com/xolvio/md-blog'
 });
 
@@ -16,9 +16,9 @@ Package.on_use(function (api) {
   api.use(['iron:router@1.0.0'], ['client', 'server']);
   api.use(['chuangbo:marked@0.3.5'], ['client', 'server']);
   api.use(['mrt:moment@2.8.1'], ['client', 'server']);
-  api.use(['yasinuslu:blaze-meta@0.2.1'], ['client', 'server']);
   api.use(['xolvio:hljs@0.0.1'], ['client']);
   api.use(['alanning:roles@1.2.13'], ['client', 'server']);
+  api.use(['fortawesome:fontawesome@4.2.0_2'], ['client']);
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);

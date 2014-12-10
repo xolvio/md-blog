@@ -1,7 +1,19 @@
+@import '../constants.import.less';
+
+.blog-controls {
+  width: inherit;
+  button {
+    background-color: @xolvio-grey-03;
+    &#mdblog-new {
+      float: right;
+    }
+  }
+}
+
 .blog-list {
 
-  width: 80%;
-  margin: 80px auto;
+  width: 90%;
+  margin: 120px auto;
 
   .blog-post {
 
@@ -12,9 +24,6 @@
       h2 {
         text-transform: uppercase;
         border: none;
-        a {
-//          color: #333;
-        }
       }
       summary {
         font-style: italic;
@@ -33,6 +42,10 @@
 
 .blog-post {
 
+  .blog-controls {
+    margin-top: -30px;
+  }
+
   width: 80%;
   margin: 100px auto;
   header {
@@ -42,8 +55,7 @@
       margin: 1.5em 0;
       color: #666;
       text-transform: uppercase;
-
-
+      line-height: 1em;
     }
     #summary {
       font-style: italic;
@@ -67,3 +79,32 @@
   }
 }
 
+// The styling below is only required by this demo app
+
+#instructions {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  top: 65px;
+  @media (min-width: 48em) {
+    top: 40px;
+  }
+  color: @xolvio-orange;
+  text-transform: uppercase;
+
+}
+
+@-webkit-keyframes blinker {
+  0% { opacity: 0.0; }
+  10% { opacity: 1.0; }
+  90% { opacity: 1.0; }
+  100% { opacity: 0.0; }
+}
+.blink {
+  -webkit-animation-name: blinker;
+  animation-direction: alternate;
+
+  -webkit-animation-iteration-count: infinite;
+  animation-timing-function: ease-out;
+  -webkit-animation-duration: 5s;
+}

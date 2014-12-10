@@ -1,5 +1,6 @@
 (function () {
 
+  AccountsTemplates.configureRoute('signUp');
   AccountsTemplates.configureRoute('signIn');
 
   AccountsTemplates.configure({
@@ -46,11 +47,5 @@
       }
     }
   });
-
-  Template.atForm.rendered = function() {
-    $('.at-form').addClass('pure-form');
-    $('.at-form button').addClass('pure-button');
-  }
-
 
 })();

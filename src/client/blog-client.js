@@ -5,8 +5,6 @@
     "Description": "Blog posts."
   };
 
-  Meta.config({options: {title: '', suffix: '', namespace: ''}});
-
   if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
     Meteor.settings = Meteor.settings || {};
     Meteor.settings.public = Meteor.settings.public || {};
@@ -26,18 +24,26 @@
   // **** Blog List
 
   Template.blogList.rendered = function () {
-    Meta.setTitle(Meteor.settings.public.blog.name);
-    Meta.set({name: 'description', content: Meteor.settings.public.blog.name});
-    Meta.set({
-      name: 'property',
-      property: 'og:title',
-      content: Meteor.settings.public.blog.name
+    _setMetadata({
+      title: Meteor.settings.public.blog.name,
+      description: Meteor.settings.public.blog.description
     });
-    Meta.set({
-      name: 'property',
-      property: 'og:description',
-      content: Meteor.settings.public.blog.description
-    });
+  };
+
+  var _setMetadata = function (meta) {
+    if (meta.title) {
+      document.title = meta.title;
+      delete meta.title;
+    }
+    for (var key in meta) {
+      $('meta[name="' + key + '"]').remove();
+      $('head').append('<meta name="' + key + '" content="' + meta[key] + '">');
+
+      $('meta[property="og:' + key + '"]').remove();
+      $('head').append('<meta property="og:' + key + '" content="' + meta[key] + '">');
+
+    }
+
   };
 
   Template.blogList.created = function () {
@@ -102,17 +108,9 @@
 
   Template.blogPost.rendered = function () {
     if (this.data) {
-      Meta.setTitle(this.data.title);
-      Meta.set({name: 'description', content: this.data.summary});
-      Meta.set({
-        name: 'property',
-        property: 'og:title',
-        content: this.data.title
-      });
-      Meta.set({
-        name: 'property',
-        property: 'og:description',
-        content: this.data.summary
+      _setMetadata({
+        title: this.data.title,
+        description: this.data.summary
       });
     }
   };
@@ -304,6 +302,17 @@
 
   UI.registerHelper('mdBlogDate', function (date) {
     return moment(date).calendar();
+  });
+
+  UI.registerHelper('mdBlogElementClasses', function (type) {
+    var elementClasses = Meteor.settings.public.blog.prettify['element-classes'];
+    if (elementClasses) {
+      for (var i = 0; i < elementClasses.length; i++) {
+        if (elementClasses[i].locator === type) {
+          return elementClasses[i].classes.join(' ');
+        }
+      }
+    }
   });
 
   moment.locale('en', {

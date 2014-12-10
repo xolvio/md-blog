@@ -13,6 +13,10 @@
 
 }
 
+.fa-github {
+  font-size: 12em;
+  color: white;
+}
 
 a:hover, a:focus {
   color: @xolvio-orange;
@@ -23,6 +27,12 @@ a:hover, a:focus {
   text-transform: none !important;
   font-family: 'Roboto Condensed', sans-serif;
 }
+
+a.pure-menu-heading:hover, a.pure-menu-heading:hover a:focus
+ {
+  color: @xolvio-color !important;
+}
+
 
 .pure-menu-horizontal li a {
 //  padding: 0;
@@ -107,13 +117,14 @@ label {
 }
 
 a.pure-button-primary:hover {
-  background-color: @xolvio-white;
+  background: @xolvio-grey-01;
+  color: @xolvio-orange;
 }
 a.pure-button-primary {
-  background: white;
-  color: @xolvio-grey-01;
+  background-color: @xolvio-orange;
+  color: @xolvio-white;
   border-radius: 5px;
-  font-size: 120%;
+  font-size: 150%;
 }
 
 /*
@@ -171,19 +182,19 @@ a.pure-button-primary {
   overflow: hidden;
   /* The following styles are required for the "scroll-over" effect */
   width: 100%;
-  height: 88%;
+//  height: 70%;
   top: 0;
   left: 0;
-  position: fixed !important;
+//  position: fixed !important;
 }
 
 .splash {
   /* absolute center .splash within .splash-container */
   width: 80%;
-  height: 50%;
-  margin: auto;
-  position: absolute;
-  top: 100px;
+//  height: 70%;
+  margin: 7em auto 2em;
+//  position: absolute;
+  top: 00px;
   left: 0;
   bottom: 0;
   right: 0;
@@ -197,7 +208,7 @@ a.pure-button-primary {
     color: white;
   }
   a:hover {
-    color: #333;
+    color: @xolvio-orange;
   }
   font-size: 20px;
   font-weight: bold;
@@ -222,8 +233,8 @@ a.pure-button-primary {
  */
 .content-wrapper {
   /* These styles are required for the "scroll-over" effect */
-  position: absolute;
-  top: 87%;
+//  position: absolute;
+//  top: 30%;
   width: 100%;
   min-height: 12%;
   z-index: 2;
