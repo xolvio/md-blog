@@ -66,10 +66,11 @@
       return;
     }
 
+    var author = Meteor.user().profile && Meteor.user().profile.name ? Meteor.user().profile.name : Meteor.user().emails[0].address;
     var newBlog = {
       title: 'New Blog Post',
       date: new Date(),
-      author: Meteor.user().profile.name,
+      author: author,
       summary: 'Summary of this post.',
       content: '##**Main Content**' +
       '\nThis is a content editable field. Click here to start editing. Full markdown is supported in here.' +
