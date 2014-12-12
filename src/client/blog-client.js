@@ -74,10 +74,10 @@
 
     var author = Meteor.user().profile && Meteor.user().profile.name ? Meteor.user().profile.name : Meteor.user().emails[0].address;
     var newBlog = {
-      title: 'New Blog Post',
+      title: 'Click Anywhere to Edit',
       date: new Date(),
       author: author,
-      summary: 'Summary of this post.',
+      summary: _getRandomSummary(),
       content: '##**Main Content**' +
       '\nThis is a content editable field. Click here to start editing. Full markdown is supported in here.' +
       '\n\n##**Extra Formatting Options**' +
@@ -99,8 +99,28 @@
       '\n![alt text](http://www.meteortesting.com/img/og.png "Image Text")'
 
     };
-    Meteor.call('upsertBlog', newBlog);
-    Router.go('/blog');
+    Meteor.call('upsertBlog', newBlog, function(err, blog) {
+      if (!err) {
+        Router.go('/blog/' + blog.shortId + '/' + blog.slug);
+      } else {
+        console.log('Erorr upserting blog', err);
+      }
+
+    });
+
+  }
+
+  function _getRandomSummary () {
+    var subjects = ['I', 'You', 'She', 'He', 'They', 'We'];
+    var verbs = ['was just', 'will get', 'found', 'attained', 'received', 'will merge with', 'accept', 'accepted'];
+    var objects = ['Billy', 'an apple', 'a force', 'the treasure', 'a sheet of paper'];
+    var endings = ['.', ', right?', '.', ', like I said I would.', '.', ', just like your app!'];
+
+    return subjects[Math.round(Math.random() * (
+      subjects.length - 1))] + ' ' +
+      verbs[Math.round(Math.random() * (verbs.length - 1))] + ' ' +
+      objects[Math.round(Math.random() * (objects.length - 1))] +
+      endings[Math.round(Math.random() * (endings.length - 1))];
   }
 
   // ***********************************************************************************************

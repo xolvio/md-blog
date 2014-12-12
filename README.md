@@ -4,7 +4,7 @@ xolvio:md-blog
 This is the blog package currently used on The Meteor Testing Manual. It will give you a
 markdown powered blog on your site.
 
- * Full Markdown support
+ * WYSIWYG Markdown support with in-place editing
  * Syntax highlighting using [highlight.js](https://highlightjs.org/)
  * Customizable styling with the ability to add your own classes to elements!
  * Publish / Unpublish / Archive / Unarchive workflows
@@ -141,10 +141,21 @@ this is good for SEO purposes.
 The `:_id` is a truncated version of the mongo id for the blog entry. This allows you to have
 multiple posts with the same title over time.
 
+When you archive blog posts, currently they are removed from the main view but they are still
+accessible by search engines and external links. To see your archived blog entries, go to:
+
+`www.your-site.com/archive`
 
 ##Contribution
 Yes please!
 
 Todo list:
+ * [ ] Your idea!
+ * [ ] Image Uploads
+ * [ ] Date Picker
+ * [ ] Author Picker
  * [ ] Pagination
+ * [ ] Admin page for backup / restore of data
+ * [ ] Admin page for user management
  * [ ] Auto draft saving + history
+ * [ ] Tabbed view for: All / Published / Unpublished / Archived

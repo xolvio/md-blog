@@ -1,8 +1,8 @@
 {
   "public": {
     "blog": {
-      "name": "The Meteor Testing Manual Blog",
-      "description": "Get the latest news on what's happening in the Meteor testing landscape.",
+      "name": "Xolv.io MD-Blog",
+      "description": "A WYSIWYG Markdown blog for your Meteor app.",
       "prettify": {
         "syntax-highlighting": true,
         "element-classes": [
