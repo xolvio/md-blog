@@ -9,7 +9,7 @@ markdown powered blog on your site.
  * Customizable styling with the ability to add your own classes to elements!
  * Publish / Unpublish / Archive / Unarchive workflows
 
-[Try the demo site](http://mdblog.meteor.com)
+[Try the demo site](http://md-blog.meteor.com)
 
 [See the demo site code](https://github.com/xolvio/md-blog)
 
@@ -155,7 +155,4 @@ Todo list:
  * [ ] Date Picker
  * [ ] Author Picker
  * [ ] Pagination
- * [ ] Admin page for backup / restore of data
- * [ ] Admin page for user management
  * [ ] Auto draft saving + history
- * [ ] Tabbed view for: All / Published / Unpublished / Archived
