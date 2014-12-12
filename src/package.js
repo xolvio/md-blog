@@ -19,6 +19,7 @@ Package.on_use(function (api) {
   api.use(['yasinuslu:blaze-meta@0.2.1'], ['client', 'server']);
   api.use(['xolvio:hljs@0.0.1'], ['client']);
   api.use(['alanning:roles@1.2.13'], ['client', 'server']);
+  api.use(['joshowens:shareit@0.3.0'], ['client']);
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);
