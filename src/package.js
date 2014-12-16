@@ -25,6 +25,8 @@ Package.on_use(function (api) {
 
   // Server
   api.add_files(['server/blog-server.js'], 'server');
+  // Next line added 12/16/14 Aaron Cammarata acammarata@voidalpha.com
+  api.add_files(['server/blog-server-backup.js'], 'server');
 
   // Client
   api.add_files(['client/blog-templates.html'], 'client');
