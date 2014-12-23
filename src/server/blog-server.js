@@ -58,7 +58,7 @@
   function _getSlug (title) {
 
     var replace = [
-      ' ', '#', '%', '"', ':', '/',
+      ' ', '#', '%', '"', ':', '/', '?',
       '^', '`', '[', ']', '{', '}', '<', '>',
       ';', '@', '&', '=', '+', '$', '|', ','
     ];
@@ -76,7 +76,7 @@
 
 
   Meteor.startup(function () {
-    if (process.env.NODE_ENV === 'development') {
+    if (!!process.env.AUTO_RESET && process.env.NODE_ENV === 'development') {
       Blog.remove({});
     }
     if (Blog.find().count() === 0) {

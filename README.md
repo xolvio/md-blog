@@ -146,6 +146,15 @@ accessible by search engines and external links. To see your archived blog entri
 
 `www.your-site.com/archive`
 
+###Environment Variables
+
+If you want the app to delete all the blog entries on startup, set the environment variable
+`AUTO_RESET=1` when running meteor. For example:
+
+```bash
+AUTO_RESET=1 meteor
+```
+
 ##Contribution
 Yes please!
 
@@ -156,3 +165,6 @@ Todo list:
  * [ ] Author Picker
  * [ ] Pagination
  * [ ] Auto draft saving + history
+
+
+ AUTO_RESET
