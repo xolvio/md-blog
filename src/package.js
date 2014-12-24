@@ -18,6 +18,7 @@ Package.on_use(function (api) {
   api.use(['mrt:moment@2.8.1'], ['client', 'server']);
   api.use(['xolvio:hljs@0.0.1'], ['client']);
   api.use(['alanning:roles@1.2.13'], ['client', 'server']);
+  api.use(['joshowens:shareit@0.3.0'], ['client']);
   api.use(['fortawesome:fontawesome@4.2.0_2'], ['client']);
 
   // Common
