@@ -14,5 +14,8 @@
 <template name="blogPostLayout">
   {{> header}}
   {{> instructions}}
+    <div class="share-wrapper">
+      {{> shareit .}}
+    </div>
   {{> yield}}
 </template>
