@@ -38,7 +38,7 @@
       },
       data: function () {
         if (this.ready()) {
-          var blog = Blog.findOne({slug: this.params.slug});
+          var blog = Blog.findOne({shortId: this.params.shortId});
           if (blog) {
             blog.loaded = true;
             return blog;

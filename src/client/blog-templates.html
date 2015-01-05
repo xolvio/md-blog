@@ -1,81 +1,147 @@
 <template name="blogList">
-    <section class="blog-list">
+  <section class="blog-list">
+    {{#if isInRole 'mdblog-author'}}
+    <section class="blog-controls">
+      <button title="New" id="mdblog-new" class="{{mdBlogElementClasses 'button'}}">
+        <i class="fa fa-pencil-square-o"></i> New
+      </button>
+    </section>
+    {{/if}}
+    {{#each this}}
+    <section class="blog-post">
       {{#if isInRole 'mdblog-author'}}
-          <section class="blog-controls">
-              <button title="New" id="mdblog-new" class="{{mdBlogElementClasses 'button'}}">
-                  <i class="fa fa-pencil-square-o"></i> New</button>
-          </section>
+      {{> blogControls }}
       {{/if}}
-      {{#each this}}
-          <section class="blog-post">
-            {{#if isInRole 'mdblog-author'}}
-              {{> blogControls }}
-            {{/if}}
-              <header>
-                  <h2><a href="{{pathFor route='blogPost'}}">{{title}}</a></h2>
+      <header>
+        <h2><a href="{{pathFor route='blogPost'}}">{{title}}</a></h2>
                       <span class="info">Posted by <span class="author">{{author}}</span>
                           <time>{{mdBlogDate date}}</time>
                       </span>
-              </header>
-              <summary>
-                {{{summary}}} <a href="{{pathFor route='blogPost'}}">Read more
-                  <i class="fa fa-long-arrow-right"></i></a>
-              </summary>
-          </section>
-      {{else}}
-          Waiting for blog posts.
-      {{/each}}
+      </header>
+      <summary>
+        {{{summary}}} <a href="{{pathFor route='blogPost'}}">Read more
+        <i class="fa fa-long-arrow-right"></i></a>
+      </summary>
     </section>
+    {{else}}
+    Waiting for blog posts.
+    {{/each}}
+  </section>
 </template>
 
 <template name="blogControls">
-    <section class="blog-controls">
-      {{#if modified}}
-          <button title="Save" id="mdblog-save" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-floppy-o"> Save</i>
-          </button>
-      {{/if}}
-      {{#unless published}}
-          <button title="Publish" id="mdblog-publish" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-play"></i> Publish</button>
-      {{/unless}}
-      {{#if published}}
-          <button title="Unpublish" id="mdblog-unpublish" class="{{mdBlogElementClasses
-          'button'}}"><i class="fa fa-stop"></i> Unpublish</button>
-      {{/if}}
-      {{#unless archived}}
-          <button title="Archive" id="mdblog-archive" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-eye-slash"></i> Archive</button>
-      {{/unless}}
-      {{#if archived}}
-          <button title="Unarchive" id="mdblog-unarchive" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-eye"></i> Unarchive</button>
-      {{/if}}
-        <button title="Delete" id="mdblog-delete" class="{{mdBlogElementClasses 'button'}}">
-            <i class="fa fa-trash"></i> Delete</button>
-    </section>
+  <section class="blog-controls">
+    {{#if modified}}
+    <button title="Save" id="mdblog-save" class="{{mdBlogElementClasses 'button'}}">
+      <i class="fa fa-floppy-o"> Save</i>
+    </button>
+    {{/if}}
+    {{#unless published}}
+    <button title="Publish" id="mdblog-publish" class="{{mdBlogElementClasses 'button'}}">
+      <i class="fa fa-play"></i> Publish
+    </button>
+    {{/unless}}
+    {{#if published}}
+    <button title="Unpublish" id="mdblog-unpublish" class="{{mdBlogElementClasses
+            'button'}}"><i class="fa fa-stop"></i> Unpublish
+    </button>
+    {{/if}}
+    {{#unless archived}}
+    <button title="Archive" id="mdblog-archive" class="{{mdBlogElementClasses 'button'}}">
+      <i class="fa fa-eye-slash"></i> Archive
+    </button>
+    {{/unless}}
+    {{#if archived}}
+    <button title="Unarchive" id="mdblog-unarchive" class="{{mdBlogElementClasses 'button'}}">
+      <i class="fa fa-eye"></i> Unarchive
+    </button>
+    {{/if}}
+    <button title="Delete" id="mdblog-delete" class="{{mdBlogElementClasses 'button'}}">
+      <i class="fa fa-trash"></i> Delete
+    </button>
+    <button title="History" id="mdblog-history" class="{{mdBlogElementClasses 'button'}}">
+      <i class="fa fa-history"></i> History
+    </button>
+    {{> blogHistory}}
+  </section>
 </template>
 
 <template name="blogPost">
   {{#if blogPostReady}}
-      <section class="blog-post">
-          <header>
-            {{#if isInRole 'mdblog-author'}}
-              {{> blogControls }}
-            {{/if}}
-              <h1 id="title" {{contenteditable}}>{{{title}}}</h1>
+  <section class="blog-post">
+    <header>
+    {{#if isInRole 'mdblog-author'}}
+      {{> blogControls }}
+    {{/if}}
+          <h1 id="title" {{contenteditable}}>{{{title}}}</h1>
 
-              <h3 id="summary" {{contenteditable}}>{{{summary}}}</h3>
-            <span class="info">Posted by
-                <span id="author" class="author" {{contenteditable}}>{{{author}}}</span>
-                <time id="date" {{contenteditable}}>{{mdBlogDate date}}</time>
-            </span>
-          </header>
-          <article id="content" {{contenteditable}} data-markdown="true">
-            {{{content}}}
-          </article>
+          <h3 id="summary" {{contenteditable}}>{{{summary}}}</h3>
+                <span class="info">Posted by
+                    <span id="author" class="author" {{contenteditable}}>{{{author}}}</span>
+                    <time id="date" {{contenteditable}}>{{mdBlogDate date}}</time>
+                </span>
+        </header>
+        <article id="content" {{contenteditable}} data-markdown="true">
+          {{{content}}}
+        </article>
       </section>
   {{else}}
-      Loading...
+    Loading...
   {{/if}}
+</template>
+
+<template name="blogHistory">
+  {{#if showingHistory}}
+  <div class='modal' id='historyDialog'>
+    <table class="mdblog-history-table">
+      <tr class="mdblog-history-table-header">
+        <th>Date</th>
+        <th>Author</th>
+        <th>Title</th>
+        <th>Summary</th>
+        <th>Restore?</th>
+        <th>Delete?</th>
+      </tr>
+      <!--TODO-->
+      <!--This is using the first blog post in the list when clicking history buttons.-->
+      <!--Should use the current one.-->
+      {{#each blogHistoryVersion}}
+      {{> blogVersion}}
+      {{/each}}
+    </table>
+  </div>
+  {{/if}}
+</template>
+
+<template name="blogVersion">
+  <tr class="mdblog-history-table-row">
+    <td class="mdblog-version-date" align="center">{{date}}</td>
+    <td class="mdblog-version-author" align="center">{{author}}</td>
+    <td class="mdblog-version-title">{{title}}</td>
+    <td class="mdblog-version-summary">{{summary}}</td>
+    <td class="mdblog-version-restore" align="center">
+      {{> Template.dynamic template=actionButton}}
+    </td>
+    <td class="mdblog-version-delete" align="center">
+      {{> Template.dynamic template=deleteButton}}
+    </td>
+  </tr>
+</template>
+
+<template name="blogCurrentVersion">
+  <span class='mdblog-current-version'>Current Version</span>
+</template>
+
+<template name="blogRestoreButton">
+  <button title="Restore Version" id="mdblog-restore-{{vernum}}"
+          class="mdblog-restore-version-button {{mdBlogElementClasses 'button'}}">
+    <i class="fa fa-floppy-o"> Restore Version</i>
+  </button>
+</template>
+
+<template name="blogDeleteButton">
+  <button title="Restore Version" id="mdblog-delete-{{vernum}}"
+          class="mdblog-delete-version-button {{mdBlogElementClasses 'button'}}">
+    <i class="fa fa-trash"> Delete Version</i>
+  </button>
 </template>

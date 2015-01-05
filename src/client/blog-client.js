@@ -63,7 +63,8 @@
   });
 
   Template.blogList.events({
-    'click #mdblog-new': _new
+    'click #mdblog-new': _new,
+    'click #mdblog-history': _openHistory
   });
 
   function _new () {
@@ -99,8 +100,10 @@
       '\n![alt text](http://www.meteortesting.com/img/og.png "Image Text")'
 
     };
-    Meteor.call('upsertBlog', newBlog, function(err, blog) {
+    Meteor.call('upsertBlog', newBlog, function (err, blog) {
       if (!err) {
+        Session.set('mdblog-show-history', false);
+        Session.set("mdblog-history-list");
         Router.go('/blog/' + blog.shortId + '/' + blog.slug);
       } else {
         console.log('Erorr upserting blog', err);
@@ -138,7 +141,8 @@
   Template.blogPost.events({
     'click [contenteditable], focus *[contenteditable]': _edit,
     'keyup [contenteditable]': _update,
-    'blur [contenteditable]': _stopEditing
+    'blur [contenteditable]': _stopEditing,
+    'click #mdblog-history': _openHistory
   });
 
   Template.blogPost.helpers({
@@ -233,9 +237,141 @@
   }
 
   // ***********************************************************************************************
+  // **** History
+
+  Template.blogHistory.helpers({
+    blogHistoryVersion: function () {
+      return Session.get("mdblog-history-list");
+    },
+    showingHistory: function () {
+      /* TODO - this shows the history table for ALL posts, but only puts the CURRENT post in the dialog.
+       * This means that if you click the history button for a post on the blog list, then if you look closely
+       * at the list, the other blog posts will have their history shown as well.
+       * This should be more intelligent, perhaps only returning true if the current blog is the one for which
+       * the history button was pressed.
+       */
+      // It will be shown via a JQuery dialog call, so we hide it at startup
+      return Session.get('mdblog-show-history');
+    },
+    blogPostHistoryTitle: function () {
+      return this.title;
+    },
+  });
+
+  Template.blogRestoreButton.events({
+    'click .mdblog-restore-version-button': _restoreVersion
+  })
+
+  Template.blogDeleteButton.events({
+    'click .mdblog-delete-version-button': _deleteVersion
+  })
+
+  Session.set('mdblog-showingHistory', false);
+
+  function _saveHistoryToSessionVariable (history, blogId) {
+    // Re-sort newest to oldest
+    history.reverse();
+    history.forEach(function (version, index) {
+      // Cleanup for display - make Date more human-readable
+      var verdate = version.date;
+      var newdate = (verdate.getMonth() + 1) + "/" + verdate.getDate() + "/" + verdate.getFullYear() + " " + verdate.getHours() + ":" + verdate.getMinutes() + ":" + verdate.getSeconds();
+      version.date = newdate;
+      if (index === 0) {
+        version.actionButton = "blogCurrentVersion";
+        version.deleteButton = "blogCurrentVersion";
+        version.blogId = blogId
+      } else {
+        version.actionButton = "blogRestoreButton";
+        version.deleteButton = "blogDeleteButton";
+        version.blogId = blogId;
+      }
+      version.vernum = index;
+    });
+    Session.set("mdblog-history-list", history);
+  };
+
+  function _openHistory () {
+    var self = this;
+    var blogId = this._id;
+    Session.set('mdblog-show-history', true);
+    Meteor.call('mdblog-getHistory', blogId, function (err, history) {
+      if (!history || !history.length || history.length === 0) {
+        Session.set('mdblog-show-history', false);
+        Session.set("mdblog-history-list");
+        alert("This post does not seem to have a history yet - have you saved any changes?");
+        return;
+      }
+      _saveHistoryToSessionVariable(history, blogId);
+      $(function () {
+        var title = "History for <i>" + self.title + "</i>";
+        $("#historyDialog").dialog({
+          modal: true,
+          title: title,
+          closeOnEscape: true,
+          closeText: "Cancel",
+          draggable: false,
+          height: $(window).height() * 0.8,
+          width: $(window).width() * 0.8,
+          buttons: [
+            {
+              text: "Cancel",
+              click: function () {
+                $(this).dialog("close");
+              }
+
+              // Uncommenting the following line would hide the text,
+              // resulting in the label being used as a tooltip
+              //showText: false
+            }
+          ],
+          open: function () {
+            $('.ui-widget-overlay').addClass('mdblog-history-modal-overlay');
+          },
+          close: function () {
+            $('.ui-widget-overlay').removeClass('mdblog-history-modal-overlay');
+            Session.set('mdblog-show-history', false);
+            Session.set("mdblog-history-list");
+          }
+        });
+      });
+    });
+  }
+
+  function _restoreVersion (event) {
+    var userIsSure = confirm("Are you sure? This will create a copy of the selected version and make it the " +
+    "current version.");
+    if (!userIsSure) {
+      return;
+    }
+    var blogId = this.blogId;
+    Meteor.call('mdblog-restoreVersion', blogId, this.vernum, function (err, updatedBlog) {
+      Router.go('/blog/' + updatedBlog.shortId + '/' + updatedBlog.slug);
+
+      //Meteor.call('mdblog-getHistory', blogId, function (err, history) {
+      //  _saveHistoryToSessionVariable(history, blogId);
+      //});
+    });
+  }
+
+  function _deleteVersion (event) {
+    var userIsSure = confirm("Are you SURE?\n\nThis action is non-reversible!");
+    if (!userIsSure) {
+      return;
+    }
+    var blogId = this.blogId;
+    Meteor.call('mdblog-deleteVersion', blogId, this.vernum, function () {
+      Meteor.call('mdblog-getHistory', blogId, function (err, history) {
+        _saveHistoryToSessionVariable(history, blogId);
+      });
+    });
+  }
+
+  // ***********************************************************************************************
   // **** Blog Controls
 
   Router.onAfterAction(function () {
+    Session.set('mdblog-show-history', false);
+    Session.set("mdblog-history-list");
     Session.set('mdblog-modified', false);
   });
 
@@ -266,6 +402,8 @@
     Meteor.call('upsertBlog', this, function (err, blog) {
       if (!err) {
         Router.go('/blog/' + blog.shortId + '/' + blog.slug);
+        Session.set('mdblog-show-history', false);
+        Session.set("mdblog-history-list");
         Session.set('mdblog-modified', false);
       }
     });
@@ -313,6 +451,8 @@
     if (input === 'YES') {
       Meteor.call('deleteBlog', this, function (e) {
         if (!e) {
+          Session.set('mdblog-show-history', false);
+          Session.set("mdblog-history-list");
           Router.go('blogList');
         }
       });
@@ -346,4 +486,11 @@
     }
   });
 
-})();
+  Meteor.startup(function () {
+    Session.set("mdblog-show-history", false);
+    Session.set("mdblog-history-list");
+    Session.set("mdblog-history-list")
+  })
+
+})
+();
