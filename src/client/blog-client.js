@@ -5,6 +5,7 @@
     "Description": "Blog posts.",
     "blogPath": "/blog",
     "archivePath": "/blog/archive",
+    "useUniqueBlogPostsPath": true,
     "prettify": {
       "syntax-highlighting": true
     }

@@ -2,9 +2,26 @@
 
   var blogSub = Meteor.subscribe('blog');
 
+  function getBaseBlogPath () {
+    return Meteor.settings.public.blog.blogPath;
+  }
+
+  function getBaseArchivePath () {
+    return Meteor.settings.public.blog.archivePath;
+  }
+
+  function getBlogPostPath () {
+
+    if (Meteor.settings.public.blog.useUniqueBlogPostsPath) {
+      return getBaseBlogPath() + '/:shortId/:slug';
+    }
+
+    return baseBlogPath + '/:slug';
+  }
+
   Router.map(function () {
     this.route('blogList', {
-      path: Meteor.settings.public.blog.blogPath,
+      path: getBaseBlogPath(),
       layoutTemplate: 'blogListLayout',
       action: function () {
         this.wait(blogSub);
@@ -17,7 +34,7 @@
     });
 
     this.route('blogListArchive', {
-      path: Meteor.settings.public.blog.archivePath,
+      path: getBaseArchivePath(),
       layoutTemplate: 'blogListLayout',
       action: function () {
         this.wait(blogSub);
@@ -30,7 +47,7 @@
     });
 
     this.route('blogPost', {
-      path: Meteor.settings.public.blog.blogPath + '/:slug',
+      path: getBlogPostPath(),
       layoutTemplate: 'blogPostLayout',
       action: function () {
         this.wait(blogSub);
