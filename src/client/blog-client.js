@@ -2,21 +2,21 @@
 
   var defaultBlogSettings = {
     "name": "Blog",
-    "Description": "Blog posts."
+    "Description": "Blog posts.",
+    "blogPath": "/blog",
+    "archivePath": "/blog/archive",
+    "prettify": {
+      "syntax-highlighting": true
+    }
   };
 
   if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
     Meteor.settings = Meteor.settings || {};
     Meteor.settings.public = Meteor.settings.public || {};
     Meteor.settings.public.blog = defaultBlogSettings;
+  } else {
+    _.defaults(Meteor.settings.public.blog, defaultBlogSettings);
   }
-
-  if (!Meteor.settings.public.blog.prettify
-    || !Meteor.settings.public.blog.prettify['syntax-highlighting']) {
-    Meteor.settings.public.blog.prettify = Meteor.settings.public.blog.prettify || {};
-    Meteor.settings.public.blog.prettify['syntax-highlighting'] = Meteor.settings.public.blog.prettify['syntax-highlighting'] || true;
-  }
-
 
   'use strict';
 
@@ -101,7 +101,7 @@
     };
     Meteor.call('upsertBlog', newBlog, function(err, blog) {
       if (!err) {
-        Router.go('/blog/' + blog.shortId + '/' + blog.slug);
+        Router.go(Meteor.settings.public.blog.blogPath + '/' + blog.slug);
       } else {
         console.log('Erorr upserting blog', err);
       }
@@ -265,7 +265,7 @@
     }
     Meteor.call('upsertBlog', this, function (err, blog) {
       if (!err) {
-        Router.go('/blog/' + blog.shortId + '/' + blog.slug);
+        Router.go(Meteor.settings.public.blog.blogPath + '/' + blog.slug);
         Session.set('mdblog-modified', false);
       }
     });

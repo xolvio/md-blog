@@ -4,7 +4,7 @@
 
   Router.map(function () {
     this.route('blogList', {
-      path: '/blog',
+      path: Meteor.settings.public.blog.blogPath,
       layoutTemplate: 'blogListLayout',
       action: function () {
         this.wait(blogSub);
@@ -17,7 +17,7 @@
     });
 
     this.route('blogListArchive', {
-      path: '/blog/archive',
+      path: Meteor.settings.public.blog.archivePath,
       layoutTemplate: 'blogListLayout',
       action: function () {
         this.wait(blogSub);
@@ -30,7 +30,7 @@
     });
 
     this.route('blogPost', {
-      path: '/blog/:shortId/:slug',
+      path: Meteor.settings.public.blog.blogPath + '/:slug',
       layoutTemplate: 'blogPostLayout',
       action: function () {
         this.wait(blogSub);
