@@ -12,11 +12,14 @@
 
   function getBlogPostPath () {
 
+    var blogPostPath = getBaseBlogPath();
     if (Meteor.settings.public.blog.useUniqueBlogPostsPath) {
-      return getBaseBlogPath() + '/:shortId/:slug';
+      blogPostPath += '/:shortId';
     }
+    blogPostPath += '/:slug';
 
-    return getBaseBlogPath() + '/:slug';
+    // Remove any duplicate '/'
+    return _.compact(blogPostPath.split('/')).join('/');
   }
 
   Router.map(function () {
