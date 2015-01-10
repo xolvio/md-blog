@@ -16,7 +16,7 @@
       return getBaseBlogPath() + '/:shortId/:slug';
     }
 
-    return baseBlogPath + '/:slug';
+    return getBaseBlogPath() + '/:slug';
   }
 
   Router.map(function () {

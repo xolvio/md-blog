@@ -102,7 +102,7 @@
     };
     Meteor.call('upsertBlog', newBlog, function(err, blog) {
       if (!err) {
-        Router.go(Meteor.settings.public.blog.blogPath + '/' + blog.slug);
+        Router.go('blogPost', blog);
       } else {
         console.log('Erorr upserting blog', err);
       }
@@ -266,7 +266,7 @@
     }
     Meteor.call('upsertBlog', this, function (err, blog) {
       if (!err) {
-        Router.go(Meteor.settings.public.blog.blogPath + '/' + blog.slug);
+        Router.go('blogPost', blog);
         Session.set('mdblog-modified', false);
       }
     });
