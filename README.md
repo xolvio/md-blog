@@ -98,6 +98,12 @@ framework of your choice.
 By default, the blog sorts your posts by date. You can change this by modifying the `sortBy`
 field in the settings file.
 
+####Blog Routes
+
+The blog runs at the default "/blog" route. The archive runs at the default
+"/blog/archive" route. For each post, the default is the "blog/:shortId/:slug" route. You can customize where the blog handles requests by
+changing the `blogPath` and `archivePath`. You can also remove the short id from the blog post path by setting the `useUniqueBlogPostsPath` to false.
+
 ####Settings File Example
 ```json
 {
@@ -118,7 +124,10 @@ field in the settings file.
           }
         ]
       },
-      "sortBy": {"date": -1}
+      "sortBy": {"date": -1},
+      "blogPath": "/blog",
+      "archivePath": "/blog/archive",
+      "useUniqueBlogPostsPath": true
     }
   }
 }

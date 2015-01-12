@@ -2,27 +2,15 @@
 
   var defaultBlogSettings = {
     "name": "Blog",
-    "Description": "Blog posts."
-  };
-
-  if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
-    Meteor.settings = Meteor.settings || {};
-    Meteor.settings.public = Meteor.settings.public || {};
-    Meteor.settings.public.blog = defaultBlogSettings;
-  }
-
-  if (!Meteor.settings.public.blog.prettify
-    || !Meteor.settings.public.blog.prettify['syntax-highlighting']) {
-    Meteor.settings.public.blog.prettify = Meteor.settings.public.blog.prettify || {};
-    Meteor.settings.public.blog.prettify['syntax-highlighting'] = Meteor.settings.public.blog.prettify['syntax-highlighting'] || true;
-  }
-
-  if (!Meteor.settings.public.blog.locale) {
-    Meteor.settings.public.blog.locale = "en";
-  }
-
-  if (!Meteor.settings.public.blog.moment) {
-    Meteor.settings.public.blog.moment = {
+    "Description": "Blog posts.",
+    "blogPath": "/blog",
+    "archivePath": "/blog/archive",
+    "useUniqueBlogPostsPath": true,
+    "prettify": {
+      "syntax-highlighting": true
+    },
+    "locale": "en",
+    "moment": {
       "calendar": {
         "lastDay": "[yesterday at] LT",
         "sameDay": "[today at] LT",
@@ -32,6 +20,14 @@
         "sameElse": "on L"
       }
     }
+  };
+
+  if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
+    Meteor.settings = Meteor.settings || {};
+    Meteor.settings.public = Meteor.settings.public || {};
+    Meteor.settings.public.blog = defaultBlogSettings;
+  } else {
+    _.defaults(Meteor.settings.public.blog, defaultBlogSettings);
   }
 
   'use strict';
@@ -117,7 +113,7 @@
     };
     Meteor.call('upsertBlog', newBlog, function(err, blog) {
       if (!err) {
-        Router.go('/blog/' + blog.shortId + '/' + blog.slug);
+        Router.go('blogPost', blog);
       } else {
         console.log('Erorr upserting blog', err);
       }
@@ -281,7 +277,7 @@
     }
     Meteor.call('upsertBlog', this, function (err, blog) {
       if (!err) {
-        Router.go('/blog/' + blog.shortId + '/' + blog.slug);
+        Router.go('blogPost', blog);
         Session.set('mdblog-modified', false);
       }
     });
