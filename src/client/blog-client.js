@@ -17,6 +17,22 @@
     Meteor.settings.public.blog.prettify['syntax-highlighting'] = Meteor.settings.public.blog.prettify['syntax-highlighting'] || true;
   }
 
+  if (!Meteor.settings.public.blog.locale) {
+    Meteor.settings.public.blog.locale = "en";
+  }
+
+  if (!Meteor.settings.public.blog.moment) {
+    Meteor.settings.public.blog.moment = {
+      "calendar": {
+        "lastDay": "[yesterday at] LT",
+        "sameDay": "[today at] LT",
+        "nextDay": "[tomorrow at] LT",
+        "lastWeek": "[last] dddd [at] LT",
+        "nextWeek": "dddd [at] LT",
+        "sameElse": "on L"
+      }
+    }
+  }
 
   'use strict';
 
@@ -335,15 +351,6 @@
     }
   });
 
-  moment.locale('en', {
-    calendar: {
-      lastDay: '[yesterday at] LT',
-      sameDay: '[today at] LT',
-      nextDay: '[tomorrow at] LT',
-      lastWeek: '[last] dddd [at] LT',
-      nextWeek: 'dddd [at] LT',
-      sameElse: 'on L'
-    }
-  });
+  moment.locale(Meteor.settings.public.blog.locale, Meteor.settings.public.blog.moment);
 
 })();
