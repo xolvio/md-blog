@@ -16,7 +16,10 @@
           }
         ]
       },
-      "sortBy": {"date": -1}
+      "sortBy": {"date": -1},
+      "blogPath": "/blog",
+      "archivePath": "/blog/archive",
+      "useUniqueBlogPostsPath": true
     }
   }
 }

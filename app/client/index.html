@@ -11,7 +11,7 @@
             <a class="pure-menu-heading" href="http://xolv.io" target="_blank">Xolv.io</a>
             <ul>
                 <li class="pure-menu-selected"><a href="/">Home</a></li>
-                <li><a href="/blog">Blog</a></li>
+                <li><a href="{{pathFor 'blogList'}}">Blog</a></li>
               {{#if currentUser}}
                   <li><a class="sign-out" href="#">Sign Out</a></li>
               {{else}}
