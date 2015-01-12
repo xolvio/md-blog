@@ -1,3 +1,8 @@
+0.3.8
+=====
+
+* Blog posts' date can now be displayed in locales other than English (Issue #14)
+
 0.3.7
 =====
 
