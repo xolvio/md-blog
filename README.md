@@ -133,6 +133,30 @@ changing the `blogPath` and `archivePath`. You can also remove the short id from
 }
 ```
 
+####i18n
+If you need the posts' dates language other than the English default, specify `locale` and `moment` at the same level as the blog name. The following example sets the days and months in French, and configures a few moments in French as well. (Note that this is not comprehensive. Refer to the [Moment documentation](http://momentjs.com/docs/#/i18n/changing-locale/) for more settings.)
+
+```json
+{
+  "public": {
+    "blog": {
+      ...
+      "locale": "fr",
+      "moment": {
+        "calendar": {
+          "lastDay": "[hier à] LT",
+          "sameDay": "[aujourd'hui à] LT",
+          "nextDay": "[demain à] LT",
+          "lastWeek": "[dernier] dddd [à] LT",
+          "nextWeek": "dddd [à] LT",
+          "sameElse": "L"
+        }
+      }
+    }
+  }
+}
+```
+
 ##Additional Info
 
 ###URL Format

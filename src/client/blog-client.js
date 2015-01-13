@@ -8,6 +8,17 @@
     "useUniqueBlogPostsPath": true,
     "prettify": {
       "syntax-highlighting": true
+    },
+    "locale": "en",
+    "moment": {
+      "calendar": {
+        "lastDay": "[yesterday at] LT",
+        "sameDay": "[today at] LT",
+        "nextDay": "[tomorrow at] LT",
+        "lastWeek": "[last] dddd [at] LT",
+        "nextWeek": "dddd [at] LT",
+        "sameElse": "on L"
+      }
     }
   };
 
@@ -336,15 +347,6 @@
     }
   });
 
-  moment.locale('en', {
-    calendar: {
-      lastDay: '[yesterday at] LT',
-      sameDay: '[today at] LT',
-      nextDay: '[tomorrow at] LT',
-      lastWeek: '[last] dddd [at] LT',
-      nextWeek: 'dddd [at] LT',
-      sameElse: 'on L'
-    }
-  });
+  moment.locale(Meteor.settings.public.blog.locale, Meteor.settings.public.blog.moment);
 
 })();
