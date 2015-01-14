@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="An example page showing you how to use Xolv.io's md-blog.">
+    <meta name="description" content="{{_ \"site_meta_desc\"}}">
 
 </head>
 
@@ -10,13 +10,13 @@
         <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
             <a class="pure-menu-heading" href="http://xolv.io" target="_blank">Xolv.io</a>
             <ul>
-                <li class="pure-menu-selected"><a href="/">Home</a></li>
-                <li><a href="{{pathFor 'blogList'}}">Blog</a></li>
+                <li class="pure-menu-selected"><a href="/">{{_ "home"}}</a></li>
+                <li><a href="{{pathFor 'blogList'}}">{{_ "blog"}}</a></li>
               {{#if currentUser}}
-                  <li><a class="sign-out" href="#">Sign Out</a></li>
+                  <li><a class="sign-out" href="#">{{_ "sign_out"}}</a></li>
               {{else}}
-                  <li><a href="/sign-up">Register</a></li>
-                  <li><a href="/sign-in">Sign In</a></li>
+                  <li><a href="/sign-up">{{_ "register"}}</a></li>
+                  <li><a href="/sign-in">{{_ "sign_in"}}</a></li>
               {{/if}}
             </ul>
         </div>
@@ -34,12 +34,10 @@
             <h1 class="splash-head">
                 <a href="https://atmospherejs.com/xolvio/md-blog">xolvio:md-blog</a></h1>
 
-            <p class="splash-subhead">
-                A drop-in markdown blog for your Meteor app.
-            </p>
+            <p class="splash-subhead">{{_ "md_blog_desc"}}</p>
 
             <p>
-                <a href="/blog" class="pure-button pure-button-primary button-xlarge">See a Demo</a>
+                <a href="/blog" class="pure-button pure-button-primary button-xlarge">{{_ "see_a_demo"}}</a>
             </p>
         </div>
     </div>
@@ -50,7 +48,7 @@
     <div class="content-wrapper">
 
         <div class="content">
-            <h2 class="content-head is-center">meteor add xolvio:md-blog</h2>
+            <h2 class="content-head is-center">{{_ "home_title"}}</h2>
 
             <div class="pure-g">
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
@@ -58,50 +56,36 @@
 
                     <h3 class="content-subhead">
                         <i class="fa fa-th-large"></i>
-                        WYSIWYG Markdown
+                        {{_ "feature1_title"}}
                     </h3>
 
-                    <p>
-                        Write your blog posts in the popular markdown syntax on the left, and
-                        see your changes live on the right.
-                    </p>
+                    <p>{{_ "feature1_desc"}}</p>
 
 
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <h3 class="content-subhead">
                         <i class="fa fa-mobile"></i>
-                        Simple Workflow
+                        {{_ "feature2_title"}}
                     </h3>
 
-                    <p>
-                        You can create, publish, unpublish, archive, unarchive and delete blog
-                        posts.
-                    </p>
+                    <p>{{_ "feature2_desc"}}</p>
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <h3 class="content-subhead">
                         <i class="fa fa-th-large"></i>
-                        Syntax Highlighting
+                        {{_ "feature3_title"}}
                     </h3>
 
-                    <p>
-                        Uses <a target="_blank" href="https://highlightjs.org/">highlight.js</a>
-                        which contains lots of themes to choose from to suit the look and feel of
-                        your site.
-                    </p>
+                    <p>{{{_ "feature3_desc" "<a target=\"_blank\" href=\"https://highlightjs.org/\">highlight.js</a>"}}}</p>
                 </div>
                 <div class="l-box pure-u-1 pure-u-md-1-2 pure-u-lg-1-4">
                     <h3 class="content-subhead">
                         <i class="fa fa-check-square-o"></i>
-                        Customizable
+                        {{_ "feature4_title"}}
                     </h3>
 
-                    <p>
-                        This demo site uses the <a href="http://purecss.io" target="_blank">Pure
-                        .css</a> responsive framework, but you can use anything you like from
-                        Bootstrap to Foundation.
-                    </p>
+                    <p>{{{_ "feature4_desc" "<a href=\"http://purecss.io\" target=\"_blank\">Pure.css</a>"}}}</p>
                 </div>
             </div>
         </div>
@@ -113,11 +97,9 @@
             <div class="pure-u-1 pure-u-md-1-2 pure-u-lg-3-5">
 
                 <h2 class="content-head content-head-ribbon"><a target="_blank"
-                        href="https://github.com/xolvio/md-blog">Fork/Star on GitHub</a></h2>
+                        href="https://github.com/xolvio/md-blog">{{_ "github_link"}}</a></h2>
 
-                <p>We <i class="fa fa-heart"></i> the open-source community and welcome
-                    <a href="https://github.com/xolvio/md-blog/issues" target="_blank">feedback</a>
-                    and contributions.</p>
+                <p>{{{_ "love_open_source" heart="<i class=\"fa fa-heart\"></i>"}}}</p>
             </div>
         </div>
 
