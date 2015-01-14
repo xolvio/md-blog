@@ -1,3 +1,8 @@
+0.3.9
+=====
+
+* Full support for i18n. Blog in one language at a time. Out-of-the-box support for English (default) and French.
+
 0.3.8
 =====
 

@@ -3,7 +3,7 @@
       {{#if isInRole 'mdblog-author'}}
           <section class="blog-controls">
               <button title="New" id="mdblog-new" class="{{mdBlogElementClasses 'button'}}">
-                  <i class="fa fa-pencil-square-o"></i> New</button>
+                  <i class="fa fa-pencil-square-o"></i>{{_ "new"}}</button>
           </section>
       {{/if}}
       {{#each this}}
@@ -13,17 +13,17 @@
             {{/if}}
               <header>
                   <h2><a href="{{pathFor route='blogPost'}}">{{title}}</a></h2>
-                      <span class="info">Posted by <span class="author">{{author}}</span>
+                      <span class="info">{{_ "posted_by"}}<span class="author">{{author}}</span>
                           <time>{{mdBlogDate date}}</time>
                       </span>
               </header>
               <summary>
-                {{{summary}}} <a href="{{pathFor route='blogPost'}}">Read more
+                {{{summary}}} <a href="{{pathFor route='blogPost'}}">{{_ "read_more"}}
                   <i class="fa fa-long-arrow-right"></i></a>
               </summary>
           </section>
       {{else}}
-          Waiting for blog posts.
+          {{_ waiting_for_posts}}
       {{/each}}
     </section>
 </template>
@@ -32,27 +32,27 @@
     <section class="blog-controls">
       {{#if modified}}
           <button title="Save" id="mdblog-save" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-floppy-o"> Save</i>
+              <i class="fa fa-floppy-o">{{_ "save"}}</i>
           </button>
       {{/if}}
       {{#unless published}}
           <button title="Publish" id="mdblog-publish" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-play"></i> Publish</button>
+              <i class="fa fa-play"></i>{{_ "publish"}}</button>
       {{/unless}}
       {{#if published}}
           <button title="Unpublish" id="mdblog-unpublish" class="{{mdBlogElementClasses
-          'button'}}"><i class="fa fa-stop"></i> Unpublish</button>
+          'button'}}"><i class="fa fa-stop"></i>{{_ "unpublish"}}</button>
       {{/if}}
       {{#unless archived}}
           <button title="Archive" id="mdblog-archive" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-eye-slash"></i> Archive</button>
+              <i class="fa fa-eye-slash"></i>{{_ "archive"}}</button>
       {{/unless}}
       {{#if archived}}
           <button title="Unarchive" id="mdblog-unarchive" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-eye"></i> Unarchive</button>
+              <i class="fa fa-eye"></i>{{_ "unarchive"}}</button>
       {{/if}}
         <button title="Delete" id="mdblog-delete" class="{{mdBlogElementClasses 'button'}}">
-            <i class="fa fa-trash"></i> Delete</button>
+            <i class="fa fa-trash"></i>{{_ "delete"}}</button>
     </section>
 </template>
 
@@ -66,7 +66,7 @@
               <h1 id="title" {{contenteditable}}>{{{title}}}</h1>
 
               <h3 id="summary" {{contenteditable}}>{{{summary}}}</h3>
-            <span class="info">Posted by
+            <span class="info">{{_ "posted_by"}}
                 <span id="author" class="author" {{contenteditable}}>{{{author}}}</span>
                 <time id="date" {{contenteditable}}>{{mdBlogDate date}}</time>
             </span>
@@ -76,6 +76,6 @@
           </article>
       </section>
   {{else}}
-      Loading...
+      {{_ "loading"}}
   {{/if}}
 </template>

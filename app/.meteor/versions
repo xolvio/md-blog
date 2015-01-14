@@ -1,6 +1,7 @@
 accounts-base@1.1.3
 accounts-password@1.0.5
 alanning:roles@1.2.13
+aldeed:simple-schema@0.7.0
 application-configuration@1.0.4
 autoupdate@1.1.4
 base64@1.0.2
@@ -9,6 +10,7 @@ blaze@2.0.4
 blaze-tools@1.0.2
 boilerplate-generator@1.0.2
 callback-hook@1.0.2
+cfs:http-methods@0.0.27
 check@1.0.3
 chuangbo:marked@0.3.5
 coffeescript@1.0.5
@@ -64,6 +66,7 @@ spacebars@1.0.4
 spacebars-compiler@1.0.4
 spiderable@1.0.6
 srp@1.0.2
+tap:i18n@1.3.1
 templating@1.0.10
 tracker@1.0.4
 ui@1.0.5
@@ -74,4 +77,4 @@ useraccounts:unstyled@1.4.0
 webapp@1.1.5
 webapp-hashing@1.0.2
 xolvio:hljs@0.0.1
-xolvio:md-blog@0.2.7
+xolvio:md-blog@0.3.9

@@ -19,7 +19,18 @@
       "sortBy": {"date": -1},
       "blogPath": "/blog",
       "archivePath": "/blog/archive",
-      "useUniqueBlogPostsPath": true
+      "useUniqueBlogPostsPath": true,
+      "locale": "en",
+      "moment": {
+        "calendar": {
+          "lastDay": "[yesterday at] LT",
+          "sameDay": "[today at] LT",
+          "nextDay": "[tomorrow at] LT",
+          "lastWeek": "[last] dddd [at] LT",
+          "nextWeek": "dddd [at] LT",
+          "sameElse": "on L"
+        }
+      }
     }
   }
 }
