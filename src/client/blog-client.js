@@ -249,9 +249,7 @@
 
   function _save () {
     if (this.published) {
-      var userIsSure = confirm('This blog entry is already published. Saved changes will be ' +
-      'immediately visible to users and search engines.' +
-      '\nClick OK if you are sure.');
+      var userIsSure = confirm(TAPi18n.__("confirm_save_published"));
       if (!userIsSure) {
         return;
       }
@@ -265,8 +263,7 @@
   }
 
   function _publish () {
-    var userIsSure = confirm('Blog entry will be visible to users or search engines.' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_publish"));
     if (userIsSure) {
       this.published = true;
       Meteor.call('upsertBlog', this);
@@ -274,8 +271,7 @@
   }
 
   function _unpublish () {
-    var userIsSure = confirm('Blog entry will no longer be visible to users or search engines.' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_unpublish"));
     if (userIsSure) {
       this.published = false;
       Meteor.call('upsertBlog', this);
@@ -283,8 +279,7 @@
   }
 
   function _archive () {
-    var userIsSure = confirm('Archiving this entry will remove it from the main list view. ' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_archive"));
     if (userIsSure) {
       this.archived = true;
       Meteor.call('upsertBlog', this);
@@ -292,8 +287,7 @@
   }
 
   function _unarchive () {
-    var userIsSure = confirm('Unarchiving this entry will put it back into the main list view. ' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_unarchive"));
     if (userIsSure) {
       this.archived = false;
       Meteor.call('upsertBlog', this);
@@ -301,9 +295,8 @@
   }
 
   function _delete () {
-    var input = prompt('Please type YES in capitals if you are sure you want to delete this entry.' +
-    '\nThis action is non-reversible, you should consider archiving instead.');
-    if (input === 'YES') {
+    var input = prompt(TAPi18n.__("confirm_delete"));
+    if (input === TAPi18n.__("confirm_delete_YES")) {
       Meteor.call('deleteBlog', this, function (e) {
         if (!e) {
           Router.go('blogList');
