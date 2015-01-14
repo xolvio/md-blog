@@ -1,8 +1,8 @@
 {
   "public": {
     "blog": {
-      "name": "Le MarkDown-Blog",
-      "description": "Un blog intuitif pour votre application Meteor.",
+      "name": "Xolv.io MD-Blog",
+      "description": "A WYSIWYG Markdown blog for your Meteor app.",
       "prettify": {
         "syntax-highlighting": true,
         "element-classes": [
