@@ -1,7 +1,7 @@
 <template name="instructions">
   {{#unless currentUser}}
-      <p id="instructions" class="blink"><a href="/sign-in">Sign In</a> or <a
-              href="/sign-up">Register</a> to author posts</p>
+      <p id="instructions" class="blink"><a href="/sign-in">{{_ "sign_in"}}</a> {{_ "or"}} <a
+              href="/sign-up">{{_ "register"}}</a>{{_ "to_author_posts"}}</p>
   {{/unless}}
 </template>
 

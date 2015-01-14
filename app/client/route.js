@@ -13,4 +13,12 @@
     });
   });
 
+  Meteor.startup(function () {
+
+    TAPi18n.setLanguage(Meteor.settings.public.blog.locale)
+      .fail(function (error_message) {
+        console.log(error_message);
+      });
+  });
+
 })();

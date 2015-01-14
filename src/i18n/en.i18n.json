@@ -1,0 +1,45 @@
+{
+  "new": "New",
+  "posted_by": "Posted by ",
+  "read_more": "Read more",
+  "waiting_for_posts": "Waiting for blog posts.",
+  "save": " Save",
+  "publish": " Publish",
+  "unpublish": " Unpublish",
+  "archive": " Archive",
+  "unarchive": " Unarchive",
+  "delete": " Delete",
+  "loading": "Loading...",
+
+  "blog_post_setup_title": "This Blog is not Setup Yet",
+  "blog_post_setup_author": "John Doe",
+  "blog_post_setup_summary": "If you are the owner of this blog, you need to setup a couple of things before the blog will magically work.",
+  "blog_post_setup_contents": [
+    "Welcome to your blog!",
+    "===",
+    "[Click here to see the documentation](https://github.com/xolvio/md-blog)"
+  ],
+
+  "new_post_title": "Click Anywhere to Edit",
+  "new_post_contents": [
+    "##**Main Content**",
+    "This is a content editable field. Click here to start editing. Full markdown is supported in here.",
+    "\n##**Extra Formatting Options**",
+    "In addition to the markdown support, you also get the following features:",
+    "\n###**Pretty Code**",
+    "\n```javascript",
+    "// check out my method",
+    "function myMethod() {",
+      "  return new Object();",
+      "};",
+      "```\n",
+      "\n###**HTML Tags**",
+      "Non-markdown markup is also supported, like <u>underline</u> <sup>super</sup> and <sub>sub</sub> script",
+      "\n",
+      "\n###**Highly Customizable**",
+      "Custom class mappings for prettifying elements allows you to customize the ",
+      "markdown further. For example, you can add classes to make images responsive using ",
+      "the UI framework of your choice.",
+      "![alt text](http://www.meteortesting.com/img/og.png \"Image Text\")"
+  ]
+}

@@ -86,30 +86,11 @@
 
     var author = Meteor.user().profile && Meteor.user().profile.name ? Meteor.user().profile.name : Meteor.user().emails[0].address;
     var newBlog = {
-      title: 'Click Anywhere to Edit',
+      title: TAPi18n.__("new_post_title"),
       date: new Date(),
       author: author,
       summary: _getRandomSummary(),
-      content: '##**Main Content**' +
-      '\nThis is a content editable field. Click here to start editing. Full markdown is supported in here.' +
-      '\n\n##**Extra Formatting Options**' +
-      '\nIn addition to the markdown support, you also get the following features:' +
-      '\n\n###**Pretty Code**' +
-      '\n\n```javascript' +
-      '\n// check out my method' +
-      '\nfunction myMethod() {' +
-      '\n  return new Object();' +
-      '\n};' +
-      '```\n\n' +
-      '\n\n###**HTML Tags**' +
-      '\nNon-markdown markup is also supported, like <u>underline</u> <sup>super</sup> and <sub>sub</sub> script' +
-      '\n\n' +
-      '\n\n###**Highly Customizable**' +
-      '\nCustom class mappings for prettifying elements allows you to customize the ' +
-      'markdown further. For example, you can add classes to make images responsive using ' +
-      'the UI framework of your choice.' +
-      '\n![alt text](http://www.meteortesting.com/img/og.png "Image Text")'
-
+      content: TAPi18n.__("new_post_contents")
     };
     Meteor.call('upsertBlog', newBlog, function(err, blog) {
       if (!err) {
