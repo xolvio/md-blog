@@ -1,5 +1,8 @@
 {
+  "name": "MD-Blog de Xolv.io",
+  "description": "Un blog markdown prêt-à-utiliser pour votre application Meteor.",
   "site_meta_desc": "Un example de site démontrant l'utilisation du package md-blog de Xolv.io.",
+  "site_title": "Site example du blog Markdown de Xolv.io",
   "home": "Site",
   "blog": "Blog",
   "sign_out": "Fermer la session",
@@ -16,7 +19,7 @@
   "feature3_desc": "Utilise %s, qui contient un grand nombre de thèmes pour convenir au rendu de votre site.",
   "feature4_title": "Personnalisation",
   "feature4_desc": "Ce site de démo utilise le framework %s, mais vous pouvez utiliser ce que vous désirez, comme Bootstrap ou encore Foundation.",
-  "github_link": "Fork/Star on GitHub",
+  "github_link": "Fork/Star sur GitHub",
   "love_open_source": "Nous __heart__ la communauté du logiciel libre et accueuillons <a href=\"https://github.com/xolvio/md-blog/issues\" target=\"_blank\">vos opinions</a> et contributions.",
   "or": "ou",
   "to_author_posts": " pour écrire des articles"

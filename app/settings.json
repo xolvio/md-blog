@@ -1,8 +1,6 @@
 {
   "public": {
     "blog": {
-      "name": "Xolv.io MD-Blog",
-      "description": "A WYSIWYG Markdown blog for your Meteor app.",
       "prettify": {
         "syntax-highlighting": true,
         "element-classes": [
@@ -20,17 +18,7 @@
       "blogPath": "/blog",
       "archivePath": "/blog/archive",
       "useUniqueBlogPostsPath": true,
-      "locale": "en",
-      "moment": {
-        "calendar": {
-          "lastDay": "[yesterday at] LT",
-          "sameDay": "[today at] LT",
-          "nextDay": "[tomorrow at] LT",
-          "lastWeek": "[last] dddd [at] LT",
-          "nextWeek": "dddd [at] LT",
-          "sameElse": "on L"
-        }
-      }
+      "defaultLocale": "en"
     }
   }
 }

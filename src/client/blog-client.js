@@ -1,25 +1,13 @@
 (function () {
 
   var defaultBlogSettings = {
-    "name": "Blog",
-    "Description": "Blog posts.",
     "blogPath": "/blog",
     "archivePath": "/blog/archive",
     "useUniqueBlogPostsPath": true,
     "prettify": {
       "syntax-highlighting": true
     },
-    "locale": "en",
-    "moment": {
-      "calendar": {
-        "lastDay": "[yesterday at] LT",
-        "sameDay": "[today at] LT",
-        "nextDay": "[tomorrow at] LT",
-        "lastWeek": "[last] dddd [at] LT",
-        "nextWeek": "dddd [at] LT",
-        "sameElse": "on L"
-      }
-    }
+    "defaultLocale": "en"
   };
 
   if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
@@ -32,13 +20,34 @@
 
   'use strict';
 
+
+  var momentLocaleDep = new Tracker.Dependency;
+
+  Meteor.startup(function() {
+
+    var locale = Meteor.settings.public.blog.defaultLocale;
+    Session.set('locale', locale);
+
+    Tracker.autorun(function() {
+      var locale = Session.get('locale');
+      TAPi18n.setLanguage(locale).done( function() {
+        var momentConfig = $.parseJSON(TAPi18n.__("moment"));
+        moment.locale(locale, momentConfig);
+        momentLocaleDep.changed();
+      });
+    });
+  });
+
   // ***********************************************************************************************
   // **** Blog List
 
   Template.blogList.rendered = function () {
-    _setMetadata({
-      title: Meteor.settings.public.blog.name,
-      description: Meteor.settings.public.blog.description
+    Tracker.autorun(function() {
+      Session.get('locale'); // force dependency
+      _setMetadata({
+        title: TAPi18n.__("name"),
+        description: TAPi18n.__("description")
+      });
     });
   };
 
@@ -53,9 +62,7 @@
 
       $('meta[property="og:' + key + '"]').remove();
       $('head').append('<meta property="og:' + key + '" content="' + meta[key] + '">');
-
     }
-
   };
 
   Template.blogList.created = function () {
@@ -96,7 +103,7 @@
       if (!err) {
         Router.go('blogPost', blog);
       } else {
-        console.log('Erorr upserting blog', err);
+        console.log('Error upserting blog', err);
       }
 
     });
@@ -249,9 +256,7 @@
 
   function _save () {
     if (this.published) {
-      var userIsSure = confirm('This blog entry is already published. Saved changes will be ' +
-      'immediately visible to users and search engines.' +
-      '\nClick OK if you are sure.');
+      var userIsSure = confirm(TAPi18n.__("confirm_save_published"));
       if (!userIsSure) {
         return;
       }
@@ -265,8 +270,7 @@
   }
 
   function _publish () {
-    var userIsSure = confirm('Blog entry will be visible to users or search engines.' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_publish"));
     if (userIsSure) {
       this.published = true;
       Meteor.call('upsertBlog', this);
@@ -274,8 +278,7 @@
   }
 
   function _unpublish () {
-    var userIsSure = confirm('Blog entry will no longer be visible to users or search engines.' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_unpublish"));
     if (userIsSure) {
       this.published = false;
       Meteor.call('upsertBlog', this);
@@ -283,8 +286,7 @@
   }
 
   function _archive () {
-    var userIsSure = confirm('Archiving this entry will remove it from the main list view. ' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_archive"));
     if (userIsSure) {
       this.archived = true;
       Meteor.call('upsertBlog', this);
@@ -292,8 +294,7 @@
   }
 
   function _unarchive () {
-    var userIsSure = confirm('Unarchiving this entry will put it back into the main list view. ' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_unarchive"));
     if (userIsSure) {
       this.archived = false;
       Meteor.call('upsertBlog', this);
@@ -301,9 +302,8 @@
   }
 
   function _delete () {
-    var input = prompt('Please type YES in capitals if you are sure you want to delete this entry.' +
-    '\nThis action is non-reversible, you should consider archiving instead.');
-    if (input === 'YES') {
+    var input = prompt(TAPi18n.__("confirm_delete"));
+    if (input === TAPi18n.__("confirm_delete_YES")) {
       Meteor.call('deleteBlog', this, function (e) {
         if (!e) {
           Router.go('blogList');
@@ -314,6 +314,7 @@
 
 
   UI.registerHelper('mdBlogDate', function (date) {
+    momentLocaleDep.depend();
     return moment(date).calendar();
   });
 
@@ -326,8 +327,7 @@
         }
       }
     }
-  });
 
-  moment.locale(Meteor.settings.public.blog.locale, Meteor.settings.public.blog.moment);
+  });
 
 })();
