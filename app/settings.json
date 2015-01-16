@@ -1,8 +1,6 @@
 {
   "public": {
     "blog": {
-      "name": "Xolv.io MD-Blog",
-      "description": "A WYSIWYG Markdown blog for your Meteor app.",
       "prettify": {
         "syntax-highlighting": true,
         "element-classes": [
@@ -20,7 +18,7 @@
       "blogPath": "/blog",
       "archivePath": "/blog/archive",
       "useUniqueBlogPostsPath": true,
-      "locale": "en"
+      "defaultLocale": "en"
     }
   }
 }

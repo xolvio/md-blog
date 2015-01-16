@@ -1,15 +1,13 @@
 (function () {
 
   var defaultBlogSettings = {
-    "name": "Blog",
-    "Description": "Blog posts.",
     "blogPath": "/blog",
     "archivePath": "/blog/archive",
     "useUniqueBlogPostsPath": true,
     "prettify": {
       "syntax-highlighting": true
     },
-    "locale": "en"
+    "defaultLocale": "en"
   };
 
   if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
@@ -22,13 +20,34 @@
 
   'use strict';
 
+
+  var momentLocaleDep = new Tracker.Dependency;
+
+  Meteor.startup(function() {
+
+    var locale = Meteor.settings.public.blog.defaultLocale;
+    Session.set('locale', locale);
+
+    Tracker.autorun(function() {
+      var locale = Session.get('locale');
+      TAPi18n.setLanguage(locale).done( function() {
+        var momentConfig = $.parseJSON(TAPi18n.__("moment"));
+        moment.locale(locale, momentConfig);
+        momentLocaleDep.changed();
+      });
+    });
+  });
+
   // ***********************************************************************************************
   // **** Blog List
 
   Template.blogList.rendered = function () {
-    _setMetadata({
-      title: Meteor.settings.public.blog.name,
-      description: Meteor.settings.public.blog.description
+    Tracker.autorun(function() {
+      Session.get('locale'); // force dependency
+      _setMetadata({
+        title: TAPi18n.__("name"),
+        description: TAPi18n.__("description")
+      });
     });
   };
 
@@ -43,9 +62,7 @@
 
       $('meta[property="og:' + key + '"]').remove();
       $('head').append('<meta property="og:' + key + '" content="' + meta[key] + '">');
-
     }
-
   };
 
   Template.blogList.created = function () {
@@ -295,6 +312,12 @@
     }
   }
 
+
+  UI.registerHelper('mdBlogDate', function (date) {
+    momentLocaleDep.depend();
+    return moment(date).calendar();
+  });
+
   UI.registerHelper('mdBlogElementClasses', function (type) {
     var elementClasses = Meteor.settings.public.blog.prettify['element-classes'];
     if (elementClasses) {
@@ -304,22 +327,7 @@
         }
       }
     }
-  });
 
-  var localeDep = new Tracker.Dependency;
-
-  UI.registerHelper('mdBlogDate', function (date) {
-    localeDep.depend();
-    return moment(date).calendar();
-  });
-
-  Meteor.startup(function() {
-    var locale = Meteor.settings.public.blog.locale;
-    TAPi18n.setLanguage(locale).done( function() {
-      var momentConfig = $.parseJSON(TAPi18n.__("moment"));
-      moment.locale(locale, momentConfig);
-      localeDep.changed();
-    });
   });
 
 })();

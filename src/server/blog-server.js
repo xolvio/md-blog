@@ -80,7 +80,7 @@
       Blog.remove({});
     }
     if (Blog.find().count() === 0) {
-      var locale = Meteor.settings.public.blog.locale;
+      var locale = Meteor.settings.public.blog.defaultLocale;
       _upsertBlogPost({
         published: true,
         archived: false,

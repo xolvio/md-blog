@@ -3,6 +3,7 @@
 =====
 
 * Moment js now configured in i18n bundles. Out-of-the-box support for English (default) and French.
+* Locale can be changed reactively using `Session.set("locale", newLocale)`
 
 0.3.9
 =====

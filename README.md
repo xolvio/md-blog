@@ -135,23 +135,25 @@ changing the `blogPath` and `archivePath`. You can also remove the short id from
 
 ####i18n
 The blog engine can be configured to display messages and button texts in any language.
-English is the default language, and the translations are provided for the French language.
-Specify `locale`, at the same level as the blog name, in the `settings.json` file.
+English is the default language, and translations are provided for the French language.
+Specify `defaultLocale` at the same level as the blog name, in the `settings.json` file:
 
 ```json
 {
   "public": {
     "blog": {
       ...
-      "locale": "fr"
+      "defaultLocale": "fr"
     }
   }
 }
 ```
+**How do I change the language depending on your user's preference?
+  Simply call `Session.set('locale', newLocale)`
 
-**Do you need another language?** Read on!
-- Refer to the `tap:i18n` package documentation. You should take a look at the sample app first.
-- There are two ways to provide additional languages: 1. the preferred way is to submit a Pull Request to integrate the new `i18n/language.i18n.json`. 2. The other way is to place this file in your Meteor application.
+**I need translations for a new language!
+- Refer to the `tap:i18n` package [documentation](https://github.com/TAPevents/tap-i18n#documentation--examples). You should take a look at the sample app first.
+- There are two ways to provide additional languages: 1. the preferred way is to submit a Pull Request to integrate the new `i18n/<locale>.i18n.json`. 2. The other way is to place this file in your Meteor application.
 - When adding a new language, you will also want to configure Moment to display the localized version of `today at hh:mm` and other such texts. This is done through the `moment` object in the i18n bundle (`i18n/language.i18n.json`).
   The following example sets the days and months in French, and configures a few moments in French as well.
   (Note that this is not comprehensive. Refer to the [Moment documentation](http://momentjs.com/docs/#/i18n/changing-locale/) for more settings.)
@@ -192,7 +194,7 @@ Specify `locale`, at the same level as the blog name, in the `settings.json` fil
 ##Additional Info
 
 ###URL Format
-The URL format of your blog will look lik this:
+The URL format of your blog will look like this:
 
 `www.your-site.com/blog`
 
@@ -225,7 +227,7 @@ Yes please!
 
 Todo list:
  * [ ] Your idea!
- * [ ] Image Uploads
+ * [ ] Image Uploads - [Issue #20](https://github.com/xolvio/md-blog/issues/20)
  * [ ] Date Picker
  * [ ] Author Picker
  * [ ] Pagination

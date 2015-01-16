@@ -1,5 +1,8 @@
 {
+  "name": "MD-Blog de Xolv.io",
+  "description": "Un blog markdown prêt-à-utiliser pour votre application Meteor.",
   "site_meta_desc": "Un example de site démontrant l'utilisation du package md-blog de Xolv.io.",
+  "site_title": "Site example du blog Markdown de Xolv.io",
   "home": "Site",
   "blog": "Blog",
   "sign_out": "Fermer la session",
