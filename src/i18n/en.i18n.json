@@ -18,7 +18,7 @@
   "confirm_unarchive": "Unarchiving this entry will put it back into the main list view.\nClick OK if you are sure.",
   "confirm_delete": "Please type YES in capitals if you are sure you want to delete this entry.\nThis action is non-reversible, you should consider archiving instead.",
   "confirm_delete_YES": "YES",
-  
+
   "blog_post_setup_title": "This Blog is not Setup Yet",
   "blog_post_setup_author": "John Doe",
   "blog_post_setup_summary": "If you are the owner of this blog, you need to setup a couple of things before the blog will magically work.",
@@ -49,5 +49,18 @@
       "markdown further. For example, you can add classes to make images responsive using ",
       "the UI framework of your choice.",
       "![alt text](http://www.meteortesting.com/img/og.png \"Image Text\")"
+  ],
+
+  "moment": [
+    "{",
+      "\"calendar\": {",
+        "\"lastDay\": \"[yesterday at] LT\",",
+        "\"sameDay\": \"[todayYYY at] LT\",",
+        "\"nextDay\": \"[tomorrow at] LT\",",
+        "\"lastWeek\": \"[last] dddd [at] LT\",",
+        "\"nextWeek\": \"dddd [at] LT\",",
+        "\"sameElse\": \"on L\"",
+      "}",
+    "}"
   ]
 }

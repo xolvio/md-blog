@@ -9,17 +9,7 @@
     "prettify": {
       "syntax-highlighting": true
     },
-    "locale": "en",
-    "moment": {
-      "calendar": {
-        "lastDay": "[yesterday at] LT",
-        "sameDay": "[today at] LT",
-        "nextDay": "[tomorrow at] LT",
-        "lastWeek": "[last] dddd [at] LT",
-        "nextWeek": "dddd [at] LT",
-        "sameElse": "on L"
-      }
-    }
+    "locale": "en"
   };
 
   if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
@@ -96,7 +86,7 @@
       if (!err) {
         Router.go('blogPost', blog);
       } else {
-        console.log('Erorr upserting blog', err);
+        console.log('Error upserting blog', err);
       }
 
     });
@@ -305,11 +295,6 @@
     }
   }
 
-
-  UI.registerHelper('mdBlogDate', function (date) {
-    return moment(date).calendar();
-  });
-
   UI.registerHelper('mdBlogElementClasses', function (type) {
     var elementClasses = Meteor.settings.public.blog.prettify['element-classes'];
     if (elementClasses) {
@@ -321,6 +306,20 @@
     }
   });
 
-  moment.locale(Meteor.settings.public.blog.locale, Meteor.settings.public.blog.moment);
+  var localeDep = new Tracker.Dependency;
+
+  UI.registerHelper('mdBlogDate', function (date) {
+    localeDep.depend();
+    return moment(date).calendar();
+  });
+
+  Meteor.startup(function() {
+    var locale = Meteor.settings.public.blog.locale;
+    TAPi18n.setLanguage(locale).done( function() {
+      var momentConfig = $.parseJSON(TAPi18n.__("moment"));
+      moment.locale(locale, momentConfig);
+      localeDep.changed();
+    });
+  });
 
 })();

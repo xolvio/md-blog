@@ -1,3 +1,9 @@
+
+0.4.0
+=====
+
+* Moment js now configured in i18n bundles. Out-of-the-box support for English (default) and French.
+
 0.3.9
 =====
 

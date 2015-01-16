@@ -49,5 +49,19 @@
       "Vous pouvez par exemple ajouter des classes pour rendre les images interactives",
       " en utilisant le framework graphique de votre choix.",
       "![alt text](http://www.meteortesting.com/img/og.png \"Texte de l'image\")"
-    ]
+  ],
+
+  "moment": [
+    "{",
+      "\"weekdays\": [ \"lundi\", \"mardi\", \"mercredi\", \"jeudi\", \"vendredi\", \"samedi\", \"dimanche\" ],",
+      "\"calendar\": {",
+        "\"lastDay\": \"[hier à] LT\",",
+        "\"sameDay\": \"[aujourd'hui à] LT\",",
+        "\"nextDay\": \"[demain à] LT\",",
+        "\"lastWeek\": \"dddd [dernier à] LT\",",
+        "\"nextWeek\": \"dddd [à] LT\",",
+        "\"sameElse\": \"L\"",
+      "}",
+    "}"
+  ]
 }
