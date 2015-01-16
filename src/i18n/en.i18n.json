@@ -55,7 +55,7 @@
     "{",
       "\"calendar\": {",
         "\"lastDay\": \"[yesterday at] LT\",",
-        "\"sameDay\": \"[todayYYY at] LT\",",
+        "\"sameDay\": \"[today at] LT\",",
         "\"nextDay\": \"[tomorrow at] LT\",",
         "\"lastWeek\": \"[last] dddd [at] LT\",",
         "\"nextWeek\": \"dddd [at] LT\",",
