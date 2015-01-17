@@ -157,15 +157,15 @@
       Blog.remove({});
     }
     if (Blog.find().count() === 0) {
+      var locale = Meteor.settings.public.blog.defaultLocale;
       _upsertBlogPost({
         published: true,
         archived: false,
-        title: "This Blog is not Setup Yet",
-        author: 'John Doe',
+        title: TAPi18n.__("blog_post_setup_title", null, locale),
+        author: TAPi18n.__("blog_post_setup_author", null, locale),
         date: new Date().getTime(),
-        summary: 'If you are the owner of this blog, you need to setup a couple of things before ' +
-        'the blog will magically work.',
-        content: Assets.getText('README.md')
+        summary: TAPi18n.__("blog_post_setup_summary", null, locale),
+        content: TAPi18n.__("blog_post_setup_contents", null, locale)
       });
     }
   });

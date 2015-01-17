@@ -1,32 +1,58 @@
 (function () {
 
   var defaultBlogSettings = {
-    "name": "Blog",
-    "Description": "Blog posts."
+    "blogPath": "/blog",
+    "archivePath": "/blog/archive",
+    "useUniqueBlogPostsPath": true,
+    "prettify": {
+      "syntax-highlighting": true
+    },
+    "defaultLocale": "en"
   };
 
   if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
     Meteor.settings = Meteor.settings || {};
     Meteor.settings.public = Meteor.settings.public || {};
     Meteor.settings.public.blog = defaultBlogSettings;
+  } else {
+    _.defaults(Meteor.settings.public.blog, defaultBlogSettings);
   }
-
-  if (!Meteor.settings.public.blog.prettify
-    || !Meteor.settings.public.blog.prettify['syntax-highlighting']) {
-    Meteor.settings.public.blog.prettify = Meteor.settings.public.blog.prettify || {};
-    Meteor.settings.public.blog.prettify['syntax-highlighting'] = Meteor.settings.public.blog.prettify['syntax-highlighting'] || true;
-  }
-
 
   'use strict';
+
+
+  var momentLocaleDep = new Tracker.Dependency;
+
+  Meteor.startup(function() {
+
+    var locale = Meteor.settings.public.blog.defaultLocale;
+    Session.set('locale', locale);
+
+    Tracker.autorun(function() {
+      var locale = Session.get('locale');
+      TAPi18n.setLanguage(locale).done( function() {
+        var momentConfig = $.parseJSON(TAPi18n.__("moment"));
+        moment.locale(locale, momentConfig);
+        momentLocaleDep.changed();
+      });
+    });
+
+    // Initialize versioning / history system
+    Session.set("mdblog-show-history", false);
+    Session.set("mdblog-history-list");
+
+  });
 
   // ***********************************************************************************************
   // **** Blog List
 
   Template.blogList.rendered = function () {
-    _setMetadata({
-      title: Meteor.settings.public.blog.name,
-      description: Meteor.settings.public.blog.description
+    Tracker.autorun(function() {
+      Session.get('locale'); // force dependency
+      _setMetadata({
+        title: TAPi18n.__("name"),
+        description: TAPi18n.__("description")
+      });
     });
   };
 
@@ -41,9 +67,7 @@
 
       $('meta[property="og:' + key + '"]').remove();
       $('head').append('<meta property="og:' + key + '" content="' + meta[key] + '">');
-
     }
-
   };
 
   Template.blogList.created = function () {
@@ -63,8 +87,7 @@
   });
 
   Template.blogList.events({
-    'click #mdblog-new': _new,
-    'click #mdblog-history': _openHistory
+    'click #mdblog-new': _new
   });
 
   function _new () {
@@ -75,38 +98,17 @@
 
     var author = Meteor.user().profile && Meteor.user().profile.name ? Meteor.user().profile.name : Meteor.user().emails[0].address;
     var newBlog = {
-      title: 'Click Anywhere to Edit',
+      title: TAPi18n.__("new_post_title"),
       date: new Date(),
       author: author,
       summary: _getRandomSummary(),
-      content: '##**Main Content**' +
-      '\nThis is a content editable field. Click here to start editing. Full markdown is supported in here.' +
-      '\n\n##**Extra Formatting Options**' +
-      '\nIn addition to the markdown support, you also get the following features:' +
-      '\n\n###**Pretty Code**' +
-      '\n\n```javascript' +
-      '\n// check out my method' +
-      '\nfunction myMethod() {' +
-      '\n  return new Object();' +
-      '\n};' +
-      '```\n\n' +
-      '\n\n###**HTML Tags**' +
-      '\nNon-markdown markup is also supported, like <u>underline</u> <sup>super</sup> and <sub>sub</sub> script' +
-      '\n\n' +
-      '\n\n###**Highly Customizable**' +
-      '\nCustom class mappings for prettifying elements allows you to customize the ' +
-      'markdown further. For example, you can add classes to make images responsive using ' +
-      'the UI framework of your choice.' +
-      '\n![alt text](http://www.meteortesting.com/img/og.png "Image Text")'
-
+      content: TAPi18n.__("new_post_contents")
     };
-    Meteor.call('upsertBlog', newBlog, function (err, blog) {
+    Meteor.call('upsertBlog', newBlog, function(err, blog) {
       if (!err) {
-        Session.set('mdblog-show-history', false);
-        Session.set("mdblog-history-list");
-        Router.go('/blog/' + blog.shortId + '/' + blog.slug);
+        Router.go('blogPost', blog);
       } else {
-        console.log('Erorr upserting blog', err);
+        console.log('Error upserting blog', err);
       }
 
     });
@@ -298,23 +300,23 @@
       if (!history || !history.length || history.length === 0) {
         Session.set('mdblog-show-history', false);
         Session.set("mdblog-history-list");
-        alert("This post does not seem to have a history yet - have you saved any changes?");
+        alert(TAPi18n.__("alert_no_history"));
         return;
       }
       _saveHistoryToSessionVariable(history, blogId);
       $(function () {
-        var title = "History for <i>" + self.title + "</i>";
+        var title = TAPi18n.__("window_title_history") + " <i>" + self.title + "</i>";
         $("#historyDialog").dialog({
           modal: true,
           title: title,
           closeOnEscape: true,
-          closeText: "Cancel",
+          closeText: TAPi18n.__("history_button_cancel"),
           draggable: false,
           height: $(window).height() * 0.8,
           width: $(window).width() * 0.8,
           buttons: [
             {
-              text: "Cancel",
+              text: TAPi18n.__("history_button_cancel"),
               click: function () {
                 $(this).dialog("close");
               }
@@ -338,23 +340,18 @@
   }
 
   function _restoreVersion (event) {
-    var userIsSure = confirm("Are you sure? This will create a copy of the selected version and make it the " +
-    "current version.");
+    var userIsSure = confirm(TAPi18n.__("confirm_restore_previous"));
     if (!userIsSure) {
       return;
     }
     var blogId = this.blogId;
     Meteor.call('mdblog-restoreVersion', blogId, this.vernum, function (err, updatedBlog) {
       Router.go('/blog/' + updatedBlog.shortId + '/' + updatedBlog.slug);
-
-      //Meteor.call('mdblog-getHistory', blogId, function (err, history) {
-      //  _saveHistoryToSessionVariable(history, blogId);
-      //});
     });
   }
 
   function _deleteVersion (event) {
-    var userIsSure = confirm("Are you SURE?\n\nThis action is non-reversible!");
+    var userIsSure = confirm(TAPi18n.__("confirm_delete_previous"));
     if (!userIsSure) {
       return;
     }
@@ -370,8 +367,6 @@
   // **** Blog Controls
 
   Router.onAfterAction(function () {
-    Session.set('mdblog-show-history', false);
-    Session.set("mdblog-history-list");
     Session.set('mdblog-modified', false);
   });
 
@@ -387,31 +382,27 @@
     'click #mdblog-unpublish': _unpublish,
     'click #mdblog-archive': _archive,
     'click #mdblog-unarchive': _unarchive,
-    'click #mdblog-delete': _delete
+    'click #mdblog-delete': _delete,
+    'click #mdblog-history': _openHistory
   });
 
   function _save () {
     if (this.published) {
-      var userIsSure = confirm('This blog entry is already published. Saved changes will be ' +
-      'immediately visible to users and search engines.' +
-      '\nClick OK if you are sure.');
+      var userIsSure = confirm(TAPi18n.__("confirm_save_published"));
       if (!userIsSure) {
         return;
       }
     }
     Meteor.call('upsertBlog', this, function (err, blog) {
       if (!err) {
-        Router.go('/blog/' + blog.shortId + '/' + blog.slug);
-        Session.set('mdblog-show-history', false);
-        Session.set("mdblog-history-list");
+        Router.go('blogPost', blog);
         Session.set('mdblog-modified', false);
       }
     });
   }
 
   function _publish () {
-    var userIsSure = confirm('Blog entry will be visible to users or search engines.' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_publish"));
     if (userIsSure) {
       this.published = true;
       Meteor.call('upsertBlog', this);
@@ -419,8 +410,7 @@
   }
 
   function _unpublish () {
-    var userIsSure = confirm('Blog entry will no longer be visible to users or search engines.' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_unpublish"));
     if (userIsSure) {
       this.published = false;
       Meteor.call('upsertBlog', this);
@@ -428,8 +418,7 @@
   }
 
   function _archive () {
-    var userIsSure = confirm('Archiving this entry will remove it from the main list view. ' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_archive"));
     if (userIsSure) {
       this.archived = true;
       Meteor.call('upsertBlog', this);
@@ -437,8 +426,7 @@
   }
 
   function _unarchive () {
-    var userIsSure = confirm('Unarchiving this entry will put it back into the main list view. ' +
-    '\nClick OK if you are sure.');
+    var userIsSure = confirm(TAPi18n.__("confirm_unarchive"));
     if (userIsSure) {
       this.archived = false;
       Meteor.call('upsertBlog', this);
@@ -446,13 +434,10 @@
   }
 
   function _delete () {
-    var input = prompt('Please type YES in capitals if you are sure you want to delete this entry.' +
-    '\nThis action is non-reversible, you should consider archiving instead.');
-    if (input === 'YES') {
+    var input = prompt(TAPi18n.__("confirm_delete"));
+    if (input === TAPi18n.__("confirm_delete_YES")) {
       Meteor.call('deleteBlog', this, function (e) {
         if (!e) {
-          Session.set('mdblog-show-history', false);
-          Session.set("mdblog-history-list");
           Router.go('blogList');
         }
       });
@@ -461,6 +446,7 @@
 
 
   UI.registerHelper('mdBlogDate', function (date) {
+    momentLocaleDep.depend();
     return moment(date).calendar();
   });
 
@@ -473,24 +459,7 @@
         }
       }
     }
+
   });
 
-  moment.locale('en', {
-    calendar: {
-      lastDay: '[yesterday at] LT',
-      sameDay: '[today at] LT',
-      nextDay: '[tomorrow at] LT',
-      lastWeek: '[last] dddd [at] LT',
-      nextWeek: 'dddd [at] LT',
-      sameElse: 'on L'
-    }
-  });
-
-  Meteor.startup(function () {
-    Session.set("mdblog-show-history", false);
-    Session.set("mdblog-history-list");
-    Session.set("mdblog-history-list")
-  })
-
-})
-();
+})();

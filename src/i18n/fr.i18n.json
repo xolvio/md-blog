@@ -1,0 +1,71 @@
+{
+  "new": "Nouveau",
+  "posted_by": "Écrit par ",
+  "read_more": "Lire la suite",
+  "waiting_for_posts": "En attente d'articles ...",
+  "save": " Sauvegarder",
+  "publish": " Publier",
+  "unpublish": " Retirer",
+  "archive": " Archiver",
+  "unarchive": " Remettre",
+  "delete": " Supprimer",
+  "history": " Histoire",
+  "loading": "Chargement en cours ...",
+
+  "confirm_save_published": "Cet article est déjà publié. Les modifications seront immédiatement visibles des utilisateurs et engins de recherche.\nCliquez OK si vous êtes certain.",
+  "confirm_publish": "Cet article sera visible des utilisateurs et engins de recherche.\nCliquez OK si vous êtes certain.",
+  "confirm_unpublish": "Cet article ne sera plus visible des utilisateurs et engins de recherche.\nCliquez OK si vous êtes certain.",
+  "confirm_archive": "Archiver cet article l'enlèvera de la liste principale.\nCliquez OK si vous êtes certain.",
+  "confirm_unarchive": "Remettre cette entrée dans la liste principale ?\nCliquez OK si vous êtes certain.",
+  "confirm_delete": "Entrez OUI en lettre capitales si vous êtes certain de vouloir supprimer cet article.\nCette action est irréversible ; vous devriez considérer l'archivage à la place.",
+  "confirm_delete_YES": "OUI",
+
+  "blog_post_setup_title": "Ce blog n'est pas encore configuré",
+  "blog_post_setup_author": "Charlie",
+  "blog_post_setup_summary": "Si vous êtes le propriétaire de ce blog, vous devez configurer certaines choses avant qu'il fonctionne par magie.",
+  "blog_post_setup_contents": [
+    "Bienvenue dans votre blog !",
+    "===",
+    "Cliquez ici pour [voir la doc](https://github.com/xolvio/md-blog)"
+  ],
+
+  //  History / versioning system
+  "alert_no_history": "This post does not seem to have a history yet - have you saved any changes?",
+
+  "new_post_title": "Cliquez n'importe où pour éditer",
+  "new_post_contents": [
+    "##**Contenu principal**",
+    "Ceci est un champ au contenu modifiable. Cliquer ici pour débuter l'édition. La syntaxe markdown est supportée.",
+    "\n##**Options de formattage supplémentaires**",
+    "En supplément du support de markdown, vous bénéficiez également de :",
+    "\n###**Présentation du code avec couleurs**",
+    "\n```javascript",
+    "// check out my method",
+    "function myMethod() {",
+      "  return new Object();",
+      "};",
+      "```\n",
+      "\n###**Tags HTML**",
+      "Les tags non-markdown sont également supportés, comme <u>souligné</u> <sup>exposant</sup> ou <sub>indice</sub>",
+      "\n",
+      "\n###**Hautement configurable**",
+      "Vous pouvez utiliser des classes CSS personnalisées pour modifier le rendu du markdown.",
+      "Vous pouvez par exemple ajouter des classes pour rendre les images interactives",
+      " en utilisant le framework graphique de votre choix.",
+      "![alt text](http://www.meteortesting.com/img/og.png \"Texte de l'image\")"
+  ],
+
+  "moment": [
+    "{",
+      "\"weekdays\": [ \"lundi\", \"mardi\", \"mercredi\", \"jeudi\", \"vendredi\", \"samedi\", \"dimanche\" ],",
+      "\"calendar\": {",
+        "\"lastDay\": \"[hier à] LT\",",
+        "\"sameDay\": \"[aujourd'hui à] LT\",",
+        "\"nextDay\": \"[demain à] LT\",",
+        "\"lastWeek\": \"dddd [dernier à] LT\",",
+        "\"nextWeek\": \"dddd [à] LT\",",
+        "\"sameElse\": \"L\"",
+      "}",
+    "}"
+  ]
+}

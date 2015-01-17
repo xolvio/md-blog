@@ -98,6 +98,12 @@ framework of your choice.
 By default, the blog sorts your posts by date. You can change this by modifying the `sortBy`
 field in the settings file.
 
+####Blog Routes
+
+The blog runs at the default "/blog" route. The archive runs at the default
+"/blog/archive" route. For each post, the default is the "blog/:shortId/:slug" route. You can customize where the blog handles requests by
+changing the `blogPath` and `archivePath`. You can also remove the short id from the blog post path by setting the `useUniqueBlogPostsPath` to false.
+
 ####Settings File Example
 ```json
 {
@@ -118,16 +124,77 @@ field in the settings file.
           }
         ]
       },
-      "sortBy": {"date": -1}
+      "sortBy": {"date": -1},
+      "blogPath": "/blog",
+      "archivePath": "/blog/archive",
+      "useUniqueBlogPostsPath": true
     }
   }
 }
 ```
 
+####i18n
+The blog engine can be configured to display messages and button texts in any language.
+English is the default language, and translations are provided for the French language.
+Specify `defaultLocale` at the same level as the blog name, in the `settings.json` file:
+
+```json
+{
+  "public": {
+    "blog": {
+      ...
+      "defaultLocale": "fr"
+    }
+  }
+}
+```
+**How do I change the language depending on your user's preference?
+  Simply call `Session.set('locale', newLocale)`
+
+**I need translations for a new language!
+- Refer to the `tap:i18n` package [documentation](https://github.com/TAPevents/tap-i18n#documentation--examples). You should take a look at the sample app first.
+- There are two ways to provide additional languages: 1. the preferred way is to submit a Pull Request to integrate the new `i18n/<locale>.i18n.json`. 2. The other way is to place this file in your Meteor application.
+- When adding a new language, you will also want to configure Moment to display the localized version of `today at hh:mm` and other such texts. This is done through the `moment` object in the i18n bundle (`i18n/language.i18n.json`).
+  The following example sets the days and months in French, and configures a few moments in French as well.
+  (Note that this is not comprehensive. Refer to the [Moment documentation](http://momentjs.com/docs/#/i18n/changing-locale/) for more settings.)
+  Due to `tap:18n` only supporting Strings and not Objects in its bundles, you have to use a JSON string. The JSON string may be broken down into an array of Strings for better readability.
+
+  As an example, in order to get:
+```json
+  "moment": {
+    "weekdays": [ "lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche" ],
+    "calendar": {
+      "lastDay": "[hier à] LT",
+      "sameDay": "[aujourd'hui à] LT",
+      "nextDay": "[demain à] LT",
+      "lastWeek": "[dernier] dddd [à] LT",
+      "nextWeek": "dddd [à] LT",
+      "sameElse": "L"
+    }
+  }
+```
+  You need to write:
+`// in app/i18n/language.i18n.json:`
+```json
+  "moment": [
+    "{",
+    "\"weekdays\": [ \"lundi\", \"mardi\", \"mercredi\", \"jeudi\", \"vendredi\", \"samedi\", \"dimanche\" ],",
+    "\"calendar\": {",
+      "\"lastDay\": \"[hier à] LT\",",
+      "\"sameDay\": \"[aujourd'hui à] LT\",",
+      "\"nextDay\": \"[demain à] LT\",",
+      "\"lastWeek\": \"dddd [dernier à] LT\",",
+      "\"nextWeek\": \"dddd [à] LT\",",
+      "\"sameElse\": \"L\"",
+      "}",
+    "}"
+  ]
+```
+
 ##Additional Info
 
 ###URL Format
-The URL format of your blog will look lik this:
+The URL format of your blog will look like this:
 
 `www.your-site.com/blog`
 
@@ -160,7 +227,7 @@ Yes please!
 
 Todo list:
  * [ ] Your idea!
- * [ ] Image Uploads
+ * [ ] Image Uploads - [Issue #20](https://github.com/xolvio/md-blog/issues/20)
  * [ ] Date Picker
  * [ ] Author Picker
  * [ ] Pagination

@@ -8,9 +8,17 @@
     this.route('home', {
       path: '/',
       onAfterAction : function() {
-        document.title = 'Xolv.io Markdown Blog Sample Site';
+        document.title = TAPi18n.__('site_title');
       }
     });
+  });
+
+  Meteor.startup(function () {
+
+    TAPi18n.setLanguage(Meteor.settings.public.blog.defaultLocale)
+      .fail(function (error_message) {
+        console.log(error_message);
+      });
   });
 
 })();
