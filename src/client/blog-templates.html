@@ -53,6 +53,9 @@
       {{/if}}
         <button title="Delete" id="mdblog-delete" class="{{mdBlogElementClasses 'button'}}">
             <i class="fa fa-trash"></i>{{_ "delete"}}</button>
+        <button title="Delete" id="mdblog-history" class="{{mdBlogElementClasses 'button'}}">
+            <i class="fa fa-trash"></i>{{_ "history"}}</button>
+        {{> blogHistory}}
     </section>
 </template>
 
@@ -78,4 +81,60 @@
   {{else}}
       {{_ "loading"}}
   {{/if}}
+</template>
+
+<template name="blogHistory">
+    {{#if showingHistory}}
+      <div class='modal' id='historyDialog'>
+        <table class="mdblog-history-table">
+          <tr class="mdblog-history-table-header">
+            <th>{{_ "date"}}</th>
+            <th>{{_ "author"}}</th>
+            <th>{{_ "title"}}</th>
+            <th>{{_ "summary"}}</th>
+            <th>{{_ "restore"}}</th>
+            <th>{{_ "delete"}}</th>
+          </tr>
+          <!--TODO-->
+          <!--This is using the first blog post in the list when clicking history buttons.-->
+          <!--Should use the current one.-->
+            {{#each blogHistoryVersion}}
+                {{> blogVersion}}
+            {{/each}}
+        </table>
+      </div>
+    {{/if}}
+</template>
+
+<template name="blogVersion">
+  <tr class="mdblog-history-table-row">
+    <td class="mdblog-version-date" align="center">{{date}}</td>
+    <td class="mdblog-version-author" align="center">{{author}}</td>
+    <td class="mdblog-version-title">{{title}}</td>
+    <td class="mdblog-version-summary">{{summary}}</td>
+    <td class="mdblog-version-restore" align="center">
+        {{> Template.dynamic template=actionButton}}
+    </td>
+    <td class="mdblog-version-delete" align="center">
+        {{> Template.dynamic template=deleteButton}}
+    </td>
+  </tr>
+</template>
+
+<template name="blogCurrentVersion">
+  <span class='mdblog-current-version'>{{_ "current_version"}}</span>
+</template>
+
+<template name="blogRestoreButton">
+  <button title="Restore Version" id="mdblog-restore-{{vernum}}"
+          class="mdblog-restore-version-button {{mdBlogElementClasses 'button'}}">
+    <i class="fa fa-floppy-o"> {{_ "button_restore"}}</i>
+  </button>
+</template>
+
+<template name="blogDeleteButton">
+  <button title="Restore Version" id="mdblog-delete-{{vernum}}"
+          class="mdblog-delete-version-button {{mdBlogElementClasses 'button'}}">
+    <i class="fa fa-trash"> {{_ "button_delete"}}</i>
+  </button>
 </template>
