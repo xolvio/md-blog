@@ -8,6 +8,7 @@ markdown powered blog on your site.
  * Syntax highlighting using [highlight.js](https://highlightjs.org/)
  * Customizable styling with the ability to add your own classes to elements!
  * Publish / Unpublish / Archive / Unarchive workflows
+ * I18n Support: the blog engine can be configured to work in any language
 
 [Try the demo site](http://md-blog.meteor.com)
 
@@ -148,10 +149,10 @@ Specify `defaultLocale` at the same level as the blog name, in the `settings.jso
   }
 }
 ```
-**How do I change the language depending on your user's preference?
+**How do I change the language depending on your user's preference?**
   Simply call `Session.set('locale', newLocale)`
 
-**I need translations for a new language!
+**I need translations for a new language!**
 - Refer to the `tap:i18n` package [documentation](https://github.com/TAPevents/tap-i18n#documentation--examples). You should take a look at the sample app first.
 - There are two ways to provide additional languages: 1. the preferred way is to submit a Pull Request to integrate the new `i18n/<locale>.i18n.json`. 2. The other way is to place this file in your Meteor application.
 - When adding a new language, you will also want to configure Moment to display the localized version of `today at hh:mm` and other such texts. This is done through the `moment` object in the i18n bundle (`i18n/language.i18n.json`).
