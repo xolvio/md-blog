@@ -30,7 +30,20 @@
   ],
 
   //  History / versioning system
+  "window_title_history": "History for",
   "alert_no_history": "This post does not seem to have a history yet - have you saved any changes?",
+  "confirm_restore_previous": "Are you sure? This will create a copy of the selected version and make it the current version.",
+  "confirm_delete_previous": "Are you SURE?\n\nThis action is non-reversible!",
+  "history_button_cancel": "Cancel",
+  "date": "Date",
+  "author": "Author",
+  "title": "Title",
+  "summary": "Summary",
+  "restore": "Restore?",
+  "delete": "Delete?",
+  "current_version": "Current Version",
+  "button_restore": "Restore Version",
+  "button_delete": "Delete Version",
 
   "new_post_title": "Cliquez n'importe où pour éditer",
   "new_post_contents": [
