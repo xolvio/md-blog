@@ -9,7 +9,8 @@ markdown powered blog on your site.
  * Customizable styling with the ability to add your own classes to elements!
  * Publish / Unpublish / Archive / Unarchive workflows
  * I18n Support: the blog engine can be configured to work in any language
- * Drag & Drop images into the editing zone to upload and create links
+ * Drag & Drop images into the editing zone to upload and create links:
+![Drag and drop](https://raw.githubusercontent.com/ogourment/md-blog/img-upload/app/public/img/dragdrop.png)
 
 [Try the demo site](http://md-blog.meteor.com)
 
