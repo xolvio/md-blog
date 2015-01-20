@@ -9,6 +9,7 @@ markdown powered blog on your site.
  * Customizable styling with the ability to add your own classes to elements!
  * Publish / Unpublish / Archive / Unarchive workflows
  * I18n Support: the blog engine can be configured to work in any language
+ * Drag & Drop images into the editing zone to upload and create links
 
 [Try the demo site](http://md-blog.meteor.com)
 
@@ -104,6 +105,7 @@ field in the settings file.
 The blog runs at the default "/blog" route. The archive runs at the default
 "/blog/archive" route. For each post, the default is the "blog/:shortId/:slug" route. You can customize where the blog handles requests by
 changing the `blogPath` and `archivePath`. You can also remove the short id from the blog post path by setting the `useUniqueBlogPostsPath` to false.
+The `baseUrl` is used to generate links to images uploaded by drag&drop.
 
 ####Settings File Example
 ```json
@@ -128,7 +130,8 @@ changing the `blogPath` and `archivePath`. You can also remove the short id from
       "sortBy": {"date": -1},
       "blogPath": "/blog",
       "archivePath": "/blog/archive",
-      "useUniqueBlogPostsPath": true
+      "useUniqueBlogPostsPath": true,
+      "baseUrl": "www.your-site.com"
     }
   }
 }
@@ -192,6 +195,11 @@ Specify `defaultLocale` at the same level as the blog name, in the `settings.jso
   ]
 ```
 
+### 4. Run!
+
+`meteor --settings settings.json`
+
+
 ##Additional Info
 
 ###URL Format
@@ -220,7 +228,7 @@ If you want the app to delete all the blog entries on startup, set the environme
 `AUTO_RESET=1` when running meteor. For example:
 
 ```bash
-AUTO_RESET=1 meteor
+AUTO_RESET=1 meteor --settings settings.json
 ```
 
 ##Contribution
@@ -228,11 +236,9 @@ Yes please!
 
 Todo list:
  * [ ] Your idea!
- * [ ] Image Uploads - [Issue #20](https://github.com/xolvio/md-blog/issues/20)
  * [ ] Date Picker
  * [ ] Author Picker
  * [ ] Pagination
  * [ ] Auto draft saving + history
-
 
  AUTO_RESET
