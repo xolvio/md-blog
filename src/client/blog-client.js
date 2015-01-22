@@ -32,11 +32,15 @@
 
     Tracker.autorun(function() {
       var locale = Session.get('locale');
-      TAPi18n.setLanguage(locale).done( function() {
-        var momentConfig = $.parseJSON(TAPi18n.__("moment"));
-        moment.locale(locale, momentConfig);
-        momentLocaleDep.changed();
-      });
+      TAPi18n.setLanguage(locale)
+        .fail(function (error_message) {
+          console.log('ERROR setting language: ' + error_message);
+        })
+        .done(function() {
+          var momentConfig = $.parseJSON(TAPi18n.__("moment"));
+          moment.locale(locale, momentConfig);
+          momentLocaleDep.changed();
+        });
     });
   });
 
