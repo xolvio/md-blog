@@ -7,7 +7,9 @@
     "prettify": {
       "syntax-highlighting": true
     },
-    "defaultLocale": "en"
+    "defaultLocale": "en",
+    "baseUrl": "http://md-blog.meteor.com",
+    "imagePath": "/img"
   };
 
   if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
@@ -30,11 +32,15 @@
 
     Tracker.autorun(function() {
       var locale = Session.get('locale');
-      TAPi18n.setLanguage(locale).done( function() {
-        var momentConfig = $.parseJSON(TAPi18n.__("moment"));
-        moment.locale(locale, momentConfig);
-        momentLocaleDep.changed();
-      });
+      TAPi18n.setLanguage(locale)
+        .fail(function (error_message) {
+          console.log('ERROR setting language: ' + error_message);
+        })
+        .done(function() {
+          var momentConfig = $.parseJSON(TAPi18n.__("moment"));
+          moment.locale(locale, momentConfig);
+          momentLocaleDep.changed();
+        });
     });
   });
 
@@ -133,6 +139,7 @@
         description: this.data.summary
       });
     }
+    _handleDragAndDrop();
   };
 
   Template.blogPost.events({
@@ -231,6 +238,58 @@
       _addClassesToElements(content);
     }
   }
+
+  // **** File Upload
+
+  function doNothing(ev) {
+    ev.stopPropagation();
+    ev.preventDefault();
+  };
+
+  function _handleDragAndDrop() {
+    var obj = $("article#content");
+    obj.on('dragenter', doNothing);
+    obj.on('dragover', doNothing);
+    obj.on('drop', function (ev) {
+      ev.preventDefault();
+      var $el = $(ev.currentTarget);
+      if ($el.data('editing')) {
+        var files = ev.originalEvent.dataTransfer.files;
+        _handleFileUpload(files, function(markdown) {
+          $("article#content")[0].innerHTML += markdown;
+          _update(ev);
+        });
+      }
+      return 0;
+    });
+
+    // prevent accidental replacement of current page with dragged image
+    $(document).on('dragenter', doNothing);
+    $(document).on('dragover', doNothing);
+    $(document).on('drop', doNothing);
+  }
+
+  function _handleFileUpload(files, addMarkdown) {
+    for (var i = 0; i < files.length; i++) {
+      var file = files[i];
+      // TODO if .md add it!
+      if (file.type.indexOf("image") == 0) {
+        console.log('Sending image to server: ' + file.name);
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          Meteor.call('upsertImage', file.name, file.type, file.size, e.target.result, function (err, imageSlug) {
+            if (!err && imageSlug.length > 0) {
+              addMarkdown("![" + file.name + "](" + Meteor.settings.public.blog.baseUrl +
+                Meteor.settings.public.blog.imagePath + "/" + imageSlug + ")\n");
+            }
+          });
+        }
+        reader.readAsDataURL(file);
+      }
+    }
+  }
+
+
 
   // ***********************************************************************************************
   // **** Blog Controls

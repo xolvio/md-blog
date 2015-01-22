@@ -28,6 +28,34 @@
     Blog.upsert(id, {$set: blog});
   }
 
+  function _dataURItoBlob(dataURI) {
+    if (dataURI.split(',')[0].indexOf('base64') < 0) {
+      console.log('ERROR: unknown dataURI: ' + dataURI);
+      return '';
+    }
+    var byteString = new Buffer(dataURI.split(',')[1], 'base64').toString('binary')
+    var ia = new Uint8Array(byteString.length);
+    for (var i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    return ia;
+  }
+
+  function _upsertImage(imageName, fileType, fileSize, file) {
+    var slug = _getSlug(imageName);
+    var bytes = _dataURItoBlob(file);
+    if (bytes.length === 0) {
+      return '';
+    }
+    console.log('Saving: slug=' + slug + ' size=' + fileSize + ' type=' + fileType);
+    Images.update(
+      { slug: slug },
+      { slug: slug, name: imageName, type: fileType, size: fileSize, bytes: bytes },
+      { upsert: true }
+    );
+    return slug;
+  }
+
   Meteor.methods({
     'upsertBlog': function (blog) {
 
@@ -51,6 +79,14 @@
         return Blog.find().count();
       } else {
         return Blog.find({published: true}).count();
+      }
+    },
+    'upsertImage': function (imageName, fileType, fileSize, file) {
+
+      if (Roles.userIsInRole(this.userId, ['mdblog-author'])) {
+        return _upsertImage(imageName, fileType, fileSize, file);
+      } else {
+        throw new Meteor.Error(403, "Not authorized to upload images");
       }
     }
   });
@@ -78,6 +114,7 @@
   Meteor.startup(function () {
     if (!!process.env.AUTO_RESET && process.env.NODE_ENV === 'development') {
       Blog.remove({});
+      Images.remove({});
     }
     if (Blog.find().count() === 0) {
       var locale = Meteor.settings.public.blog.defaultLocale;
