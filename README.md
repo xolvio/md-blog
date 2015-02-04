@@ -149,7 +149,7 @@ Specify `defaultLocale` at the same level as the blog name, in the `settings.jso
   }
 }
 ```
-**How do I change the language depending on your user's preference?**
+**How do I change the language depending on my user's preference?**
   Simply call `Session.set('locale', newLocale)`
 
 **I need translations for a new language!**
@@ -158,7 +158,7 @@ Specify `defaultLocale` at the same level as the blog name, in the `settings.jso
 - When adding a new language, you will also want to configure Moment to display the localized version of `today at hh:mm` and other such texts. This is done through the `moment` object in the i18n bundle (`i18n/language.i18n.json`).
   The following example sets the days and months in French, and configures a few moments in French as well.
   (Note that this is not comprehensive. Refer to the [Moment documentation](http://momentjs.com/docs/#/i18n/changing-locale/) for more settings.)
-  Due to `tap:18n` only supporting Strings and not Objects in its bundles, you have to use a JSON string. The JSON string may be broken down into an array of Strings for better readability.
+  Due to `tap:i18n` only supporting Strings and not Objects in its bundles, you have to use a JSON string. The JSON string may be broken down into an array of Strings for better readability.
 
   As an example, in order to get:
 ```json
