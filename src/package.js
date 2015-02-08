@@ -11,7 +11,7 @@ Package.on_use(function (api) {
 
   // APIs
   api.use(['meteor-platform@1.2.0', 'less@1.0.11']);
-  api.use(['spiderable@1.0.5', 'less@1.0.11']);
+  api.use(['spiderable@1.0.5']);
   api.use(['reactive-var@1.0.3'], ['client', 'server']);
   api.use(['iron:router@1.0.0'], ['client', 'server']);
   api.use(['chuangbo:marked@0.3.5'], ['client', 'server']);
@@ -20,6 +20,7 @@ Package.on_use(function (api) {
   api.use(['alanning:roles@1.2.13'], ['client', 'server']);
   api.use(['fortawesome:fontawesome@4.2.0_2'], ['client']);
   api.use(['tap:i18n@1.3.1'], ['client', 'server']);
+  api.use('ogourment:settings');
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);

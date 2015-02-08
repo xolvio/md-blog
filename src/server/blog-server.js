@@ -2,6 +2,10 @@
 
   'use strict';
 
+  MeteorSettings.setDefaults({ public: {
+    blog: { defaultLocale: "en" }
+  }}, MeteorSettings.REQUIRED);
+
   Meteor.publish('blog', function () {
     if (Roles.userIsInRole(this.userId, ['mdblog-author'])) {
       return Blog.find();
@@ -92,6 +96,5 @@
       });
     }
   });
-
 
 })();

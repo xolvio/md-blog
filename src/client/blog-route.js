@@ -1,5 +1,9 @@
 (function () {
 
+  'use scrict';
+
+  MeteorSettings.setDefaults({ public: { blog: {} }});
+
   var blogSub = Meteor.subscribe('blog');
 
   function getBaseBlogPath () {

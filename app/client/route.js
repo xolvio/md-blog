@@ -1,5 +1,11 @@
 (function () {
 
+  'use strict';
+
+  MeteorSettings.setDefaults({ public: {
+    blog: { defaultLocale: "en" }
+  }});
+
   Router.configure({
     layoutTemplate: 'mainLayout'
   });
