@@ -1,7 +1,7 @@
 Package.describe({
   name: 'xolvio:md-blog',
   summary: 'A markdown powered blog with i18n and lots of cutomization options.',
-  version: '0.4.0',
+  version: '0.4.1',
   git: 'https://github.com/xolvio/md-blog'
 });
 
@@ -29,6 +29,7 @@ Package.on_use(function (api) {
 
   // Server
   api.add_files(['server/blog-server.js'], 'server');
+  api.add_files(['server/images-route.js'], 'server');
 
   // Client
   api.add_files(['client/blog-templates.html'], 'client');

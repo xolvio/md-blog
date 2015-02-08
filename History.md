@@ -1,4 +1,9 @@
 
+0.4.1
+=====
+
+* Drag-and-dropping images in the editor will upload the images and insert the markdown code to display them.
+
 0.4.0
 =====
 

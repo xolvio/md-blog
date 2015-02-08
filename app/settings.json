@@ -18,6 +18,8 @@
       "blogPath": "/blog",
       "archivePath": "/blog/archive",
       "useUniqueBlogPostsPath": true,
+      "baseUrl": "http://localhost:3000",
+      "imagePath": "/img",
       "defaultLocale": "en"
     }
   }
