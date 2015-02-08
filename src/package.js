@@ -20,7 +20,7 @@ Package.on_use(function (api) {
   api.use(['alanning:roles@1.2.13'], ['client', 'server']);
   api.use(['fortawesome:fontawesome@4.2.0_2'], ['client']);
   api.use(['tap:i18n@1.3.1'], ['client', 'server']);
-  api.use('ogourment:settings');
+  api.use(['ogourment:settings@1.0.1']);
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);
