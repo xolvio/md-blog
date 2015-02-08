@@ -1,25 +1,15 @@
 (function () {
 
-  var defaultBlogSettings = {
-    "blogPath": "/blog",
-    "archivePath": "/blog/archive",
-    "useUniqueBlogPostsPath": true,
-    "prettify": {
-      "syntax-highlighting": true
-    },
-    "defaultLocale": "en"
-  };
-
-  if (!Meteor.settings || !Meteor.settings.public || !Meteor.settings.public.blog) {
-    Meteor.settings = Meteor.settings || {};
-    Meteor.settings.public = Meteor.settings.public || {};
-    Meteor.settings.public.blog = defaultBlogSettings;
-  } else {
-    _.defaults(Meteor.settings.public.blog, defaultBlogSettings);
-  }
-
   'use strict';
 
+  MeteorSettings.setDefaults({ public:
+    { blog:
+      { "blogPath": "/blog",
+        "archivePath": "/blog/archive",
+        "useUniqueBlogPostsPath": true
+      }
+    }
+  });
 
   var momentLocaleDep = new Tracker.Dependency;
 
