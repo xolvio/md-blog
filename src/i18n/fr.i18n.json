@@ -60,7 +60,7 @@
         "\"nextDay\": \"[demain à] LT\",",
         "\"lastWeek\": \"dddd [dernier à] LT\",",
         "\"nextWeek\": \"dddd [à] LT\",",
-        "\"sameElse\": \"L\"",
+        "\"sameElse\": \"DD/MM/YYYY\"",
       "}",
     "}"
   ]
