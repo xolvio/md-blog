@@ -15,7 +15,7 @@
         ]
       },
       "sortBy": {"date": -1},
-      "baseUrl": "http://md-blog-future.meteor.com",
+      "baseUrl": "http://md-blog.meteor.com",
       "blogPath": "/blog",
       "archivePath": "/blog/archive",
       "useUniqueBlogPostsPath": true,
