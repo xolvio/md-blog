@@ -1,4 +1,10 @@
 
+0.4.1
+=====
+
+* Option to send an email to all registered users when a new post is published.
+* Fixed date format in French
+
 0.4.0
 =====
 

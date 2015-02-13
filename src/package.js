@@ -1,7 +1,7 @@
 Package.describe({
   name: 'xolvio:md-blog',
   summary: 'A markdown powered blog with i18n and lots of cutomization options.',
-  version: '0.4.0',
+  version: '0.4.1',
   git: 'https://github.com/xolvio/md-blog'
 });
 
@@ -21,6 +21,8 @@ Package.on_use(function (api) {
   api.use(['fortawesome:fontawesome@4.2.0_2'], ['client']);
   api.use(['tap:i18n@1.3.1'], ['client', 'server']);
   api.use(['ogourment:settings@1.0.1']);
+  api.use(['email@1.0.5']);
+  api.use(['meteorhacks:ssr@2.1.1'], ['server']);
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);

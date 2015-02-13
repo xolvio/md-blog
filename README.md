@@ -9,6 +9,7 @@ markdown powered blog on your site.
  * Customizable styling with the ability to add your own classes to elements!
  * Publish / Unpublish / Archive / Unarchive workflows
  * I18n Support: the blog engine can be configured to work in any language
+ * Send email to registered users when a new post is published
 
 [Try the demo site](http://md-blog.meteor.com)
 
@@ -170,7 +171,7 @@ Specify `defaultLocale` at the same level as the blog name, in the `settings.jso
       "nextDay": "[demain à] LT",
       "lastWeek": "[dernier] dddd [à] LT",
       "nextWeek": "dddd [à] LT",
-      "sameElse": "L"
+      "sameElse": "DD/MM/YYYY"
     }
   }
 ```
@@ -186,10 +187,35 @@ Specify `defaultLocale` at the same level as the blog name, in the `settings.jso
       "\"nextDay\": \"[demain à] LT\",",
       "\"lastWeek\": \"dddd [dernier à] LT\",",
       "\"nextWeek\": \"dddd [à] LT\",",
-      "\"sameElse\": \"L\"",
+      "\"sameElse\": \"DD/MM/YYYY\"",
       "}",
     "}"
   ]
+```
+
+####Send an email when a new post is published
+1. Set `emailOnPublish` to true:
+```json
+{
+  "public": {
+    "blog": {
+      ...
+      "emailOnPublish": "true"
+    }
+  }
+}
+```
+2. Run `meteor add meteorhacks:ssr` to add the SSR package.
+3. Provide a compiled template named `publishEmail`. For example, if the `publish_email.html` template sits in the `private` directory, make sure to run:
+```
+  SSR.compileTemplate('publishEmail',
+    Assets.getText('publish_email.html'));
+```
+
+An email will be sent to all registered users (in Bcc) when a post is published. Its sender will be the post's author. Its title will be the post's title. Its body will come from the `publishEmail` template. The template should contain the blog post's `summary` and its `url`. Example:
+```
+<h2>{{summary}}</h2>
+<a href="{{url}}">Read more...</a>
 ```
 
 ##Additional Info

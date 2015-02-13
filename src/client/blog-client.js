@@ -264,6 +264,9 @@
     if (userIsSure) {
       this.published = true;
       Meteor.call('upsertBlog', this);
+      if (Meteor.settings.public.blog.emailOnPublish) {
+        Meteor.call('sendEmail', this);
+      }
     }
   }
 

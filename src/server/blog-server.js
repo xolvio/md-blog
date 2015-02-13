@@ -32,24 +32,54 @@
     Blog.upsert(id, {$set: blog});
   }
 
-  Meteor.methods({
-    'upsertBlog': function (blog) {
+  function _sendEmail (blog) {
 
+    var addresses = Meteor.users.find(
+      { 'emails.address': { $ne: '' } } ).map(
+      function(doc) { return doc.emails[0].address });
+
+    console.info("Sending email for '" + blog.title + "' to "
+      + addresses.length + ' recipient(s):', addresses);
+
+    // TODO Refactor to remove duplication with client/blog-route.js
+    var url = Meteor.settings.public.blog.baseUrl;
+    url += Meteor.settings.public.blog.blogPath;
+    if (Meteor.settings.public.blog.useUniqueBlogPostsPath) {
+      url += '/' + blog.shortId;
+    }
+    url += '/' + blog.slug;
+    console.info("Link to blog post: " + url);
+
+    var sender = Meteor.user().emails[0].address;
+    Email.send({
+      to: sender,
+      bcc: addresses,
+      from: sender,
+      subject: blog.title,
+      html: SSR.render('publishEmail', { summary: blog.summary,
+        url: url, read_more: TAPi18n.__('read_more', {},
+          Meteor.settings.public.blog.defaultLocale)
+        })
+    });
+  }
+
+  function _removePost (blog) { Blog.remove(blog._id); }
+
+  var _authorRoleRequired = function (func) {
+    return function(blog) {
       if (Roles.userIsInRole(this.userId, ['mdblog-author'])) {
-        _upsertBlogPost(blog);
+        func(blog);
         return blog;
+      } else {
+        throw new Meteor.Error(403, "Not authorized");
+      }
+    }
+  }
 
-      } else {
-        throw new Meteor.Error(403, "Not authorized to author blog posts");
-      }
-    },
-    'deleteBlog': function (blog) {
-      if (Roles.userIsInRole(this.userId, ['mdblog-author'])) {
-        Blog.remove(blog._id);
-      } else {
-        throw new Meteor.Error(403, "Not authorized to author blog posts");
-      }
-    },
+  Meteor.methods({
+    'upsertBlog': _authorRoleRequired( _upsertBlogPost ),
+    'sendEmail': _authorRoleRequired( _sendEmail ),
+    'deleteBlog': _authorRoleRequired( _removePost ),
     'mdBlogCount': function () {
       if (Roles.userIsInRole(this.userId, ['mdblog-author'])) {
         return Blog.find().count();
