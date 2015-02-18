@@ -26,6 +26,7 @@ Package.on_use(function (api) {
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);
+  api.add_files(['common/blog-paths.js'], ['client', 'server']);
 
   // package-tap.i18n must be loaded before the templates
   api.add_files("package-tap.i18n", ["client", "server"]);
