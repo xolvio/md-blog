@@ -1,0 +1,26 @@
+{
+  "public": {
+    "blog": {
+      "prettify": {
+        "syntax-highlighting": true,
+        "element-classes": [
+          {
+            "locator": "img",
+            "classes": ["pure-img"]
+          },
+          {
+            "locator": "button",
+            "classes": ["pure-button"]
+          }
+        ]
+      },
+      "sortBy": {"date": -1},
+      "baseUrl": "http://localhost:3000",
+      "blogPath": "/blog",
+      "archivePath": "/blog/archive",
+      "useUniqueBlogPostsPath": true,
+      "defaultLocale": "en",
+      "emailOnPublish": "true"
+    }
+  }
+}

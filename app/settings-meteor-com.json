@@ -19,8 +19,7 @@
       "blogPath": "/blog",
       "archivePath": "/blog/archive",
       "useUniqueBlogPostsPath": true,
-      "defaultLocale": "en",
-      "emailOnPublish": "true"
+      "defaultLocale": "en"
     }
   }
 }
