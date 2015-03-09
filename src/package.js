@@ -20,7 +20,7 @@ Package.on_use(function (api) {
   api.use(['alanning:roles@1.2.13'], ['client', 'server']);
   api.use(['fortawesome:fontawesome@4.2.0_2'], ['client']);
   api.use(['tap:i18n@1.3.1'], ['client', 'server']);
-  api.use(['ogourment:settings@1.0.1']);
+  api.use(['ogourment:settings@0.1.0']);
   api.use(['email@1.0.5']);
   api.use(['meteorhacks:ssr@2.1.1'], ['server']);
 
