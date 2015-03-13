@@ -1,6 +1,6 @@
 (function () {
 
-  'use scrict';
+  'use strict';
 
   MeteorSettings.setDefaults({ public: { blog: {} }});
 
