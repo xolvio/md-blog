@@ -74,6 +74,9 @@
           <article id="content" {{contenteditable}} data-markdown="true">
             {{{content}}}
           </article>
+          {{#if isInRole 'mdblog-author'}}
+            {{> dropzone url='#' id='dropzone'}}
+          {{/if}}
       </section>
   {{else}}
       {{_ "loading"}}

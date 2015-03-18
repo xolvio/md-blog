@@ -123,6 +123,12 @@
         description: this.data.summary
       });
     }
+
+    Dropzone.autoDiscover = false;
+    Dropzone.options.dropzone = {
+      maxFilesize: 10,
+      accept: _insertPicture
+    };
   };
 
   Template.blogPost.events({
@@ -220,6 +226,21 @@
       _addSyntaxHighlighting(content);
       _addClassesToElements(content);
     }
+  }
+
+  function _insertPicture (file, done) {
+    var uploader = new Slingshot.Upload("mdblog-pictures");
+    uploader.send(file, function (error, downloadUrl) {
+      if (error) {
+        alert (error);
+      }
+      else {
+        var markdown = "\n![" + file.name + "](" + downloadUrl + ")";
+        var contentElement = $('article#content');
+        contentElement.focus();
+        contentElement[0].innerHTML += markdown;
+      }
+    });
   }
 
   // ***********************************************************************************************
