@@ -70,13 +70,17 @@
                 <span id="author" class="author" {{contenteditable}}>{{{author}}}</span>
                 <time id="date" {{contenteditable}}>{{mdBlogDate date}}</time>
             </span>
+            {{#if isInRole 'mdblog-author'}}
+              <br />
+              <button title="Picture" id="mdblog-picture" class="{{mdBlogElementClasses 'button'}}">
+                <i class="fa fa-image"></i> {{_ "picture"}}
+              </button>
+              <input type="file" id="mdblog-file-input" style="display:none;" />
+            {{/if}}
           </header>
           <article id="content" {{contenteditable}} data-markdown="true">
             {{{content}}}
           </article>
-          {{#if isInRole 'mdblog-author'}}
-            {{> dropzone url='#' id='dropzone'}}
-          {{/if}}
       </section>
   {{else}}
       {{_ "loading"}}

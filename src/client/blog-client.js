@@ -123,18 +123,14 @@
         description: this.data.summary
       });
     }
-
-    Dropzone.autoDiscover = false;
-    Dropzone.options.dropzone = {
-      maxFilesize: 10,
-      accept: _insertPicture
-    };
   };
 
   Template.blogPost.events({
     'click [contenteditable], focus *[contenteditable]': _edit,
     'keyup [contenteditable]': _update,
-    'blur [contenteditable]': _stopEditing
+    'blur [contenteditable]': _stopEditing,
+    'click #mdblog-picture': _choosePicture,
+    'change #mdblog-file-input': _insertPicture
   });
 
   Template.blogPost.helpers({
@@ -155,16 +151,20 @@
   });
 
   function _update (ev) {
-    var $el = $(ev.currentTarget);
-    Session.set('mdblog-modified', true);
     if (ev.keyCode == 27) {
-      $el.blur();
+      $(element).blur();
       return;
     }
+    var element = ev.currentTarget;
+    __update(this, element);
+  }
+
+  function __update (blogPost, element) {
+    Session.set('mdblog-modified', true);
     $('#mdblog-publish').show();
-    this[ev.currentTarget.id] = ev.currentTarget.innerText;
-    if ($el.data('markdown')) {
-      var $content = $('<p/>', {html: marked(this[ev.currentTarget.id])});
+    blogPost[element.id] = element.innerText;
+    if ($(element).data('markdown')) {
+      var $content = $('<p/>', {html: marked(element.innerText)});
       _prettify($content);
       $('#mdblog-clone')[0].innerHTML = $content.html();
     }
@@ -193,9 +193,9 @@
     this[element.id] = element.innerText;
     if ($el.data('markdown')) {
       $('#mdblog-clone').remove();
-      var $content = $('<p/>', {html: marked(this[ev.currentTarget.id])});
+      var $content = $('<p/>', {html: marked(element.innerText)});
       _prettify($content);
-      ev.currentTarget.innerHTML = $content.html();
+      element.innerHTML = $content.html();
     }
     // TODO save changes to this.draft.history.time.[field]
   }
@@ -228,17 +228,24 @@
     }
   }
 
-  function _insertPicture (file, done) {
+  function _choosePicture () {
+    $('#mdblog-file-input').click();
+  }
+
+  function _insertPicture (event, template) {
+    var file = event.target.files[0];
+    var blogPost = this;
     var uploader = new Slingshot.Upload("mdblog-pictures");
     uploader.send(file, function (error, downloadUrl) {
       if (error) {
         alert (error);
       }
       else {
-        var markdown = "\n![" + file.name + "](" + downloadUrl + ")";
-        var contentElement = $('article#content');
-        contentElement.focus();
-        contentElement[0].innerHTML += markdown;
+        var element = template.find('article#content');
+        element.focus();
+        var markdown = "![" + file.name + "](" + downloadUrl + ")\n\n";
+        element.innerHTML = markdown + element.innerHTML;
+        __update(blogPost, element);
       }
     });
   }
