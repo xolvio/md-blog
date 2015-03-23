@@ -24,6 +24,7 @@ Package.on_use(function (api) {
   api.use(['email@1.0.5']);
   api.use(['meteorhacks:ssr@2.1.1'], ['server']);
   api.use(['edgee:slingshot@0.4.1'], ['client','server']);
+  api.use(['cfs:dropped-event@0.0.10'], 'client');
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);

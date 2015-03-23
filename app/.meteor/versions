@@ -10,6 +10,7 @@ blaze@2.0.4
 blaze-tools@1.0.2
 boilerplate-generator@1.0.2
 callback-hook@1.0.2
+cfs:dropped-event@0.0.10
 cfs:http-methods@0.0.27
 check@1.0.3
 chuangbo:marked@0.3.5

@@ -129,8 +129,9 @@
     'click [contenteditable], focus *[contenteditable]': _edit,
     'keyup [contenteditable]': _update,
     'blur [contenteditable]': _stopEditing,
+    'dropped #content': _droppedPicture,
     'click #mdblog-picture': _choosePicture,
-    'change #mdblog-file-input': _insertPicture
+    'change #mdblog-file-input': _inputPicture
   });
 
   Template.blogPost.helpers({
@@ -228,20 +229,37 @@
     }
   }
 
+  // **** File Upload
+
+  function _droppedPicture(event, template) {
+    __insertPictures (template.data, event.originalEvent.dataTransfer.files);
+  }
+
   function _choosePicture () {
     $('#mdblog-file-input').click();
   }
+  function _inputPicture (event, template) {
+    __insertPictures (template.data, event.target.files);
+  }
 
-  function _insertPicture (event, template) {
-    var file = event.target.files[0];
-    var blogPost = this;
+  function __insertPictures (blogPost, files) {
+    _.each(files, function (file) {
+      /* Filter out dropped non-image files */
+      if (file.type.indexOf("image") === 0) {
+        __insertPicture (blogPost, file);
+      }
+    });
+  }
+
+  function __insertPicture (blogPost, file) {
+    // TODO resize
     var uploader = new Slingshot.Upload("mdblog-pictures");
-    uploader.send(file, function (error, downloadUrl) {
+    uploader.send( file, function (error, downloadUrl) {
       if (error) {
         alert (error);
       }
       else {
-        var element = template.find('article#content');
+        var element = $('article#content')[0];
         element.focus();
         var markdown = "![" + file.name + "](" + downloadUrl + ")\n\n";
         element.innerHTML = markdown + element.innerHTML;
