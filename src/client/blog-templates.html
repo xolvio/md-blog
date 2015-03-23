@@ -75,7 +75,7 @@
               <button title="Picture" id="mdblog-picture" class="{{mdBlogElementClasses 'button'}}">
                 <i class="fa fa-image"></i> {{_ "picture"}}
               </button>
-              <input type="file" id="mdblog-file-input" style="display:none;" />
+              <input type="file" id="mdblog-file-input" style="display:none;" accept="image/*" multiple />
             {{/if}}
           </header>
           <article id="content" {{contenteditable}} data-markdown="true">
