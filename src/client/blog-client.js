@@ -261,7 +261,7 @@
       else {
         var element = $('article#content')[0];
         element.focus();
-        var markdown = "![" + file.name + "](" + downloadUrl + ")\n\n";
+        var markdown = "![" + file.name + "](" + downloadUrl + ")<br>";
         element.innerHTML = markdown + element.innerHTML;
         __update(blogPost, element);
       }
