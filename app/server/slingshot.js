@@ -1,7 +1,23 @@
+MeteorSettings.setDefaults({ public:
+  { blog:
+    { pictures:
+      { Slingshot: {
+          bucket: 'mdblog-app-files',
+          directive: 'mdblog-pictures',
+          pemFile: 'google-cloud-service-key.pem',
+          idTextFile: 'google-cloud-access-id.txt'
+        }
+      }
+    }
+  }
+});
+
 Meteor.startup(function () {
 
-  var pemText = Assets.getText('google-cloud-service-key.pem').trim();
-  var idText = Assets.getText('google-cloud-access-id.txt').trim();
+  var settings = Meteor.settings.public.blog.pictures.Slingshot;
+
+  var pemText = (settings.pemFile) ? Assets.getText(settings.pemFile).trim() : null;
+  var idText = (settings.idTextFile) ? Assets.getText(settings.idTextFile).trim() : null;
 
   if (idText && pemText) {
     console.info("Initializing Slingshot for Google Cloud Storage.");
@@ -9,8 +25,8 @@ Meteor.startup(function () {
     Slingshot.GoogleCloud.directiveDefault.GoogleSecretKey = pemText;
     Slingshot.GoogleCloud.directiveDefault.GoogleAccessId = idText;
 
-    Slingshot.createDirective("mdblog-pictures", Slingshot.GoogleCloud, {
-      bucket: "mdblog-app-files",
+    Slingshot.createDirective(settings.directive, Slingshot.GoogleCloud, {
+      bucket: settings.bucket,
       acl: "public-read",
 
       authorize: function () {

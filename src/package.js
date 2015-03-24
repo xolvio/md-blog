@@ -1,7 +1,7 @@
 Package.describe({
   name: 'xolvio:md-blog',
   summary: 'A markdown powered blog with i18n and lots of cutomization options.',
-  version: '0.4.1',
+  version: '0.4.2',
   git: 'https://github.com/xolvio/md-blog'
 });
 
@@ -20,11 +20,12 @@ Package.on_use(function (api) {
   api.use(['alanning:roles@1.2.13'], ['client', 'server']);
   api.use(['fortawesome:fontawesome@4.2.0_2'], ['client']);
   api.use(['tap:i18n@1.3.1'], ['client', 'server']);
-  api.use(['ogourment:settings@0.1.0']);
+  api.use(['ogourment:settings@0.1.2']);
   api.use(['email@1.0.5']);
   api.use(['meteorhacks:ssr@2.1.1'], ['server']);
   api.use(['edgee:slingshot@0.4.1'], ['client','server']);
   api.use(['cfs:dropped-event@0.0.10'], 'client');
+  api.use(['ccorcos:clientside-image-manipulation@1.0.3'], 'client');
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);
@@ -39,6 +40,7 @@ Package.on_use(function (api) {
   // Client
   api.add_files(['client/blog-templates.html'], 'client');
   api.add_files(['client/blog-client.js'], 'client');
+  api.add_files(['client/blog-picture.js'], 'client');
   api.add_files(['client/blog-route.js'], 'client');
   api.add_files(['client/blog.less'], 'client');
 

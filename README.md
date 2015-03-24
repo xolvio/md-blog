@@ -10,7 +10,7 @@ markdown powered blog on your site.
  * Publish / Unpublish / Archive / Unarchive workflows
  * I18n Support: the blog engine can be configured to work in any language
  * Send email to registered users when a new post is published
-
+ * Click on the "Insert Pictures" button to choose pictures, or Drag & Drop pictures into the editing area, and they will be uploaded and Markdown links created
 [Try the demo site](http://md-blog.meteor.com)
 
 [See the demo site code](https://github.com/xolvio/md-blog)
@@ -217,6 +217,42 @@ An email will be sent to all registered users (in Bcc) when a post is published.
 <h2>{{summary}}</h2>
 <a href="{{url}}">Read more...</a>
 ```
+
+####Configure pictures max size and Slingshot directive
+To understand how to configure `edgee:slingshot`, read [its documentation](https://github.com/CulturalMe/meteor-slingshot/#aws-s3).
+```json
+{
+  "public": {
+    "blog": {
+      ...
+      "pictures": {
+        "maxWidth": "800",
+        "maxHeight": "800",
+        "Slingshot": {
+          "directive": "<directive name>"
+          }
+        }
+    }
+  }
+}
+```
+The demo app will work with Google Cloud Storage if you provide a `pem` file and a file that contains the `GoogleAccessId` as Assets (under the `private` directory).:
+```json
+{
+  "public": {
+    "blog": {
+      ...
+      "pictures": {
+        "Slingshot": {
+          "pemFile": "google-cloud-service-key.pem",
+          "idTextFile": "google-cloud-access-id.txt"
+          }
+        }
+    }
+  }
+}
+```
+
 
 ##Additional Info
 
