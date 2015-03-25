@@ -1,8 +1,8 @@
 
-0.4.2
+0.5.0
 =====
 
-* Support for uploding and inserting pictures (Issue #20) using edgee:slingshot.
+* Support for uploding and inserting pictures (Issue #20) using `edgee:slingshot`.
 * Fixed a few jshint warnings
 
 0.4.1
