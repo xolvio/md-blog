@@ -10,7 +10,9 @@ markdown powered blog on your site.
  * Publish / Unpublish / Archive / Unarchive workflows
  * I18n Support: the blog engine can be configured to work in any language
  * Send email to registered users when a new post is published
- * Click on the "Insert Pictures" button to choose pictures, or Drag & Drop pictures into the editing area, and they will be uploaded and Markdown links created
+ * Click on the "Insert Pictures" button to choose pictures, or Drag & Drop pictures into the editing area, and they will be uploaded and Markdown links created.<br>![Drag & drop](https://raw.githubusercontent.com/xolvio/md-blog/master/src/doc/dragdrop.png)
+
+
 [Try the demo site](http://md-blog.meteor.com)
 
 [See the demo site code](https://github.com/xolvio/md-blog)
@@ -151,6 +153,7 @@ Specify `defaultLocale` at the same level as the blog name, in the `settings.jso
 }
 ```
 **How do I change the language depending on my user's preference?**
+
   Simply call `Session.set('locale', newLocale)`
 
 **I need translations for a new language!**
@@ -290,11 +293,7 @@ Yes please!
 
 Todo list:
  * [ ] Your idea!
- * [ ] Image Uploads - [Issue #20](https://github.com/xolvio/md-blog/issues/20)
  * [ ] Date Picker
  * [ ] Author Picker
  * [ ] Pagination
  * [ ] Auto draft saving + history
-
-
- AUTO_RESET
