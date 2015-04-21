@@ -1,3 +1,7 @@
+0.5.1
+=====
+
+* Fixes settings not being recognized issue
 
 0.5.0
 =====

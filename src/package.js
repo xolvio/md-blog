@@ -1,7 +1,7 @@
 Package.describe({
   name: 'xolvio:md-blog',
   summary: 'A markdown powered blog with i18n and lots of cutomization options.',
-  version: '0.5.0',
+  version: '0.5.1',
   git: 'https://github.com/xolvio/md-blog'
 });
 
