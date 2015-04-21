@@ -1,12 +1,3 @@
-MeteorSettings.setDefaults({ public:
-  { blog:
-    { "blogPath": "/blog",
-      "archivePath": "/blog/archive",
-      "useUniqueBlogPostsPath": true
-    }
-  }
-});
-
 var momentLocaleDep = new Tracker.Dependency();
 
 Meteor.startup(function() {
