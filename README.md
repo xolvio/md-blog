@@ -74,12 +74,15 @@ For more information about roles, have a look at the
 [alanning:roles](https://github.com/alanning/meteor-roles) package.
 
 
-You're ready to go!
+### 3. Add the `tap:i18n` package
 
-### 3. Customize
+I18n is built-in and uses `tap:i18n`; as a result, you need to `meteor add tap:i18n` even if your website is English only.
 
-This blog is designed to be fully customizable and as unopinionated as possible. Here are some of
-the ways you can configure it.
+
+### 4. Customize
+
+This blog is designed to be fully customizable and as unopinionated as possible. Here are some of the ways you can configure it.
+
 
 ####Styling
 
