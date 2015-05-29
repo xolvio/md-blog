@@ -4,7 +4,7 @@
 
   MeteorSettings.setDefaults({ public: {
     blog: { defaultLocale: "en" }
-  }}, MeteorSettings.REQUIRED);
+  }}, MeteorSettings.REQUIRED_IN_PROD);
 
   Meteor.publish('blog', function () {
     if (Roles.userIsInRole(this.userId, ['mdblog-author'])) {

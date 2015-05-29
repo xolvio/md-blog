@@ -1,3 +1,8 @@
+0.5.2
+=====
+
+* settings file now only required on server in production (Issue #32)
+
 0.5.1
 =====
 
