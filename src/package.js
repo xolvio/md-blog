@@ -58,7 +58,7 @@ Package.on_use(function (api) {
 
   // Client
   api.add_files(['client/blog-templates.html'], 'client');
-  api.add_files(['client/blog-templates.js'], 'client');
+  api.add_files(['client/blog-client.js'], 'client');
   api.add_files(['client/blog-picture.js'], 'client');
   api.add_files(['client/blog-route.js'], 'client');
   api.add_files(['client/blog.less'], 'client');
