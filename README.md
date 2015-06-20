@@ -77,6 +77,11 @@ For more information about roles, have a look at the
 ### 3. Add the `tap:i18n` package
 
 I18n is built-in and uses `tap:i18n`; as a result, you need to `meteor add tap:i18n` even if your website is English only.
+You also need to enable tap:i18n by creating a file called project-tap.i18n with as a minimum the following code:
+
+    {
+    "helper_name": "_"
+    }
 
 
 ### 4. Customize
@@ -100,6 +105,31 @@ file. Have a look at the settings.json file below. You can see there's a field n
 `element-classes`. The example above is adding the class
 `pure-img` to all `img` elements. This is very powerful as it allows you to use your CSS
 framework of your choice.
+
+####Overriding Templates
+Many css frameworks determine the structure of the html and setting classes alone is not enough. So to fully convert the blog to a particular look and feel you may need to create your own templates.
+
+The default templates provided by md-blog can be replaced by your own thanks to the inclusion of nicolaslopezj:reactive-templates
+
+To override the default provide the following code (in a client side Meteor.startup() function for instance):
+
+    ReactiveTemplates.set( 'blogList', 'myAppBlogList' );
+	ReactiveTemplates.set( 'blogPost', 'myAppBlogPost' );
+	ReactiveTemplates.set( 'blogControls', 'myAppBlogControls' );
+    
+The first of these statements tells ReactiveTemplates that you want to override the template for 'blogList' with the template provided in the second parameter. The name 'myAppBlogList' is an arbitary example - give the name of your template.
+
+You can use the default templates that are bundled in a file called 'blog-templates.html' as a starting point.
+
+Please note that to include an overriden template in another template you must call it as Template.dynamic as ReactiveTemplates swaps in the name of the template depending on the value it has had set.
+
+You can include the template for blogControls (the save, publish/unpublish, delete buttons) as follows:
+
+    {{> Template.dynamic template=blogControlTemplate}}
+
+The Function that returns the name of the template to be used for blogControlTemplate has been provided for you.
+
+Helpers and events of the default md-blog templates are assigned to your tempates that override them, although if you want to create something special you can. 
 
 ####Sorting
 By default, the blog sorts your posts by date. You can change this by modifying the `sortBy`
