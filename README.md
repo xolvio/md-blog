@@ -1,3 +1,5 @@
+# - - DEPRECATED - -
+
 xolvio:md-blog
 ==============
 
