@@ -8,21 +8,23 @@ Meteor.startup(function() {
   Tracker.autorun(function() {
     var locale = Session.get('locale');
     TAPi18n.setLanguage(locale)
-      .fail(function (error_message) {
-        console.log('ERROR setting language: ' + error_message);
-      })
-      .done(function() {
-        var momentConfig = $.parseJSON(TAPi18n.__("moment"));
-        moment.locale(locale, momentConfig);
-        momentLocaleDep.changed();
-      });
+        .fail(function (error_message) {
+          console.log('ERROR setting language: ' + error_message);
+        })
+        .done(function() {
+          var momentConfig = $.parseJSON(TAPi18n.__("moment"));
+          moment.locale(locale, momentConfig);
+          momentLocaleDep.changed();
+        });
   });
 });
 
 // ***********************************************************************************************
 // **** Blog List
 
-Template.blogList.rendered = function () {
+ReactiveTemplates.request('blogList', 'mdBlogBlogList')
+
+ReactiveTemplates.onRendered('blogList', function () {
   Tracker.autorun(function() {
     Session.get('locale'); // force dependency
     _setMetadata({
@@ -30,7 +32,7 @@ Template.blogList.rendered = function () {
       description: TAPi18n.__("description")
     });
   });
-};
+});
 
 var _setMetadata = function (meta) {
   if (meta.title) {
@@ -46,7 +48,7 @@ var _setMetadata = function (meta) {
   }
 };
 
-Template.blogList.created = function () {
+ReactiveTemplates.onCreated('blogList', function () {
   var self = this;
   self.serverBlogCount = new ReactiveVar(false);
   this.autorun(function () {
@@ -54,15 +56,18 @@ Template.blogList.created = function () {
       self.serverBlogCount.set(serverBlogCount);
     });
   });
-};
+});
 
-Template.blogList.helpers({
+ReactiveTemplates.helpers('blogList', {
   content: function () {
     return marked(this.summary);
+  },
+  blogControlTemplate: function () {
+    return ReactiveTemplates.get('blogControls');
   }
 });
 
-Template.blogList.events({
+ReactiveTemplates.events('blogList', {
   'click #mdblog-new': _new
 });
 
@@ -98,25 +103,27 @@ function _getRandomSummary () {
   var endings = ['.', ', right?', '.', ', like I said I would.', '.', ', just like your app!'];
 
   return subjects[Math.round(Math.random() * (
-    subjects.length - 1))] + ' ' +
-    verbs[Math.round(Math.random() * (verbs.length - 1))] + ' ' +
-    objects[Math.round(Math.random() * (objects.length - 1))] +
-    endings[Math.round(Math.random() * (endings.length - 1))];
+          subjects.length - 1))] + ' ' +
+      verbs[Math.round(Math.random() * (verbs.length - 1))] + ' ' +
+      objects[Math.round(Math.random() * (objects.length - 1))] +
+      endings[Math.round(Math.random() * (endings.length - 1))];
 }
 
 // ***********************************************************************************************
 // **** Blog Post
 
-Template.blogPost.rendered = function () {
+ReactiveTemplates.request('blogPost', 'mdBlogBlogPost');
+
+ReactiveTemplates.onRendered('blogPost', function () {
   if (this.data) {
     _setMetadata({
       title: this.data.title,
       description: this.data.summary
     });
   }
-};
+});
 
-Template.blogPost.events({
+ReactiveTemplates.events('blogPost', {
   'click [contenteditable], focus *[contenteditable]': _edit,
   'keyup [contenteditable]': _update,
   'blur [contenteditable]': _stopEditing,
@@ -125,7 +132,7 @@ Template.blogPost.events({
   'change #mdblog-file-input': _inputPicture
 });
 
-Template.blogPost.helpers({
+ReactiveTemplates.helpers('blogPost', {
   blogPostReady: function () {
     return this.content;
   },
@@ -142,6 +149,9 @@ Template.blogPost.helpers({
   },
   allowPictureUpload: function () {
     return UI._globalHelpers.isInRole('mdblog-author') && _allowPictureUpload();
+  },
+  blogControlTemplate: function () {
+    return ReactiveTemplates.get('blogControls');
   }
 });
 
@@ -246,13 +256,15 @@ Router.onAfterAction(function () {
   Session.set('mdblog-modified', false);
 });
 
-Template.blogControls.helpers({
+ReactiveTemplates.request('blogControls', 'mdBlogBlogControls');
+
+ReactiveTemplates.helpers('blogControls', {
   modified: function () {
     return Session.get('mdblog-modified');
   }
 });
 
-Template.blogControls.events({
+ReactiveTemplates.events('blogControls', {
   'click #mdblog-save': _save,
   'click #mdblog-publish': _publish,
   'click #mdblog-unpublish': _unpublish,

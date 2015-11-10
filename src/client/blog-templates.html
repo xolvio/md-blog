@@ -1,88 +1,88 @@
-<template name="blogList">
+<template name="mdBlogBlogList">
     <section class="blog-list">
-      {{#if isInRole 'mdblog-author'}}
-          <section class="blog-controls">
-              <button title="New" id="mdblog-new" class="{{mdBlogElementClasses 'button'}}">
-                  <i class="fa fa-pencil-square-o"></i>{{_ "new"}}</button>
-          </section>
-      {{/if}}
-      {{#each this}}
-          <section class="blog-post">
-            {{#if isInRole 'mdblog-author'}}
-              {{> blogControls }}
-            {{/if}}
-              <header>
-                  <h2><a href="{{pathFor route='blogPost'}}">{{title}}</a></h2>
+        {{#if isInRole 'mdblog-author'}}
+            <section class="blog-controls">
+                <button title="New" id="mdblog-new" class="{{mdBlogElementClasses 'button'}}">
+                    <i class="fa fa-pencil-square-o"></i>{{_ "new"}}</button>
+            </section>
+        {{/if}}
+        {{#each this}}
+            <section class="blog-post">
+                {{#if isInRole 'mdblog-author'}}
+                    {{> Template.dynamic template=blogControlTemplate}}
+                {{/if}}
+                <header>
+                    <h2><a href="{{pathFor route='blogPost'}}">{{title}}</a></h2>
                       <span class="info">{{_ "posted_by"}}<span class="author">{{author}}</span>
                           <time>{{mdBlogDate date}}</time>
                       </span>
-              </header>
-              <summary>
-                {{{summary}}} <a href="{{pathFor route='blogPost'}}">{{_ "read_more"}}
-                  <i class="fa fa-long-arrow-right"></i></a>
-              </summary>
-          </section>
-      {{else}}
-          {{_ "waiting_for_posts"}}
-      {{/each}}
+                </header>
+                <summary>
+                    {{{summary}}} <a href="{{pathFor route='blogPost'}}">{{_ "read_more"}}
+                    <i class="fa fa-long-arrow-right"></i></a>
+                </summary>
+            </section>
+        {{else}}
+            {{_ "waiting_for_posts"}}
+        {{/each}}
     </section>
 </template>
 
-<template name="blogControls">
+<template name="mdBlogBlogControls">
     <section class="blog-controls">
-      {{#if modified}}
-          <button title="Save" id="mdblog-save" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-floppy-o">{{_ "save"}}</i>
-          </button>
-      {{/if}}
-      {{#unless published}}
-          <button title="Publish" id="mdblog-publish" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-play"></i>{{_ "publish"}}</button>
-      {{/unless}}
-      {{#if published}}
-          <button title="Unpublish" id="mdblog-unpublish" class="{{mdBlogElementClasses
-          'button'}}"><i class="fa fa-stop"></i>{{_ "unpublish"}}</button>
-      {{/if}}
-      {{#unless archived}}
-          <button title="Archive" id="mdblog-archive" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-eye-slash"></i>{{_ "archive"}}</button>
-      {{/unless}}
-      {{#if archived}}
-          <button title="Unarchive" id="mdblog-unarchive" class="{{mdBlogElementClasses 'button'}}">
-              <i class="fa fa-eye"></i>{{_ "unarchive"}}</button>
-      {{/if}}
+        {{#if modified}}
+            <button title="Save" id="mdblog-save" class="{{mdBlogElementClasses 'button'}}">
+                <i class="fa fa-floppy-o">{{_ "save"}}</i>
+            </button>
+        {{/if}}
+        {{#unless published}}
+            <button title="Publish" id="mdblog-publish" class="{{mdBlogElementClasses 'button'}}">
+                <i class="fa fa-play"></i>{{_ "publish"}}</button>
+        {{/unless}}
+        {{#if published}}
+            <button title="Unpublish" id="mdblog-unpublish" class="{{mdBlogElementClasses
+            'button'}}"><i class="fa fa-stop"></i>{{_ "unpublish"}}</button>
+        {{/if}}
+        {{#unless archived}}
+            <button title="Archive" id="mdblog-archive" class="{{mdBlogElementClasses 'button'}}">
+                <i class="fa fa-eye-slash"></i>{{_ "archive"}}</button>
+        {{/unless}}
+        {{#if archived}}
+            <button title="Unarchive" id="mdblog-unarchive" class="{{mdBlogElementClasses 'button'}}">
+                <i class="fa fa-eye"></i>{{_ "unarchive"}}</button>
+        {{/if}}
         <button title="Delete" id="mdblog-delete" class="{{mdBlogElementClasses 'button'}}">
             <i class="fa fa-trash"></i>{{_ "delete"}}</button>
     </section>
 </template>
 
-<template name="blogPost">
-  {{#if blogPostReady}}
-      <section class="blog-post">
-          <header>
-            {{#if isInRole 'mdblog-author'}}
-              {{> blogControls }}
-            {{/if}}
-              <h1 id="title" {{contenteditable}}>{{{title}}}</h1>
+<template name="mdBlogBlogPost">
+    {{#if blogPostReady}}
+        <section class="blog-post">
+            <header>
+                {{#if isInRole 'mdblog-author'}}
+                    {{> Template.dynamic template=blogControlTemplate}}
+                {{/if}}
+                <h1 id="title" {{contenteditable}}>{{{title}}}</h1>
 
-              <h3 id="summary" {{contenteditable}}>{{{summary}}}</h3>
+                <h3 id="summary" {{contenteditable}}>{{{summary}}}</h3>
             <span class="info">{{_ "posted_by"}}
                 <span id="author" class="author" {{contenteditable}}>{{{author}}}</span>
                 <time id="date" {{contenteditable}}>{{mdBlogDate date}}</time>
             </span>
-            {{#if allowPictureUpload}}
-              <br />
-              <button title="Picture" id="mdblog-picture" class="{{mdBlogElementClasses 'button'}}">
-                <i class="fa fa-image"></i> {{_ "picture"}}
-              </button>
-              <input type="file" id="mdblog-file-input" style="display:none;" accept="image/*" multiple />
-            {{/if}}
-          </header>
-          <article id="content" {{contenteditable}} data-markdown="true">
-            {{{content}}}
-          </article>
-      </section>
-  {{else}}
-      {{_ "loading"}}
-  {{/if}}
+                {{#if allowPictureUpload}}
+                    <br />
+                    <button title="Picture" id="mdblog-picture" class="{{mdBlogElementClasses 'button'}}">
+                        <i class="fa fa-image"></i> {{_ "picture"}}
+                    </button>
+                    <input type="file" id="mdblog-file-input" style="display:none;" accept="image/*" multiple />
+                {{/if}}
+            </header>
+            <article id="content" {{contenteditable}} data-markdown="true">
+                {{{content}}}
+            </article>
+        </section>
+    {{else}}
+        {{_ "loading"}}
+    {{/if}}
 </template>

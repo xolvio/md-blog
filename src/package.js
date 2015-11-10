@@ -2,7 +2,7 @@ Package.describe({
   name: 'xolvio:md-blog',
   summary: 'A markdown powered blog with i18n and lots of cutomization options.',
   version: '0.5.2',
-  git: 'https://github.com/xolvio/md-blog'
+  git: 'https://github.com/thetechnaddict/md-blog'
 });
 
 Npm.depends({});
@@ -26,6 +26,25 @@ Package.on_use(function (api) {
   api.use(['edgee:slingshot@0.4.1'], ['client','server']);
   api.use(['cfs:dropped-event@0.0.10'], 'client');
   api.use(['ccorcos:clientside-image-manipulation@1.0.3'], 'client');
+  api.use(['nicolaslopezj:reactive-templates@1.2.1'], ['client']);
+
+  api.imply([
+    'spiderable',
+    'reactive-var',
+    'iron:router',
+    'chuangbo:marked',
+    'mrt:moment',
+    'xolvio:hljs',
+    'alanning:roles',
+    'fortawesome:fontawesome',
+    'tap:i18n',
+    'ogourment:settings',
+    'email',
+    'edgee:slingshot',
+    'cfs:dropped-event',
+    'ccorcos:clientside-image-manipulation',
+    'nicolaslopezj:reactive-templates'
+  ]);
 
   // Common
   api.add_files(['common/blog-collections.js'], ['client', 'server']);

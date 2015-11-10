@@ -6,13 +6,14 @@
 
   var blogSub = Meteor.subscribe('blog');
 
+
   Router.map(function () {
     this.route('blogList', {
       path: getBaseBlogPath(),
       layoutTemplate: 'blogListLayout',
       action: function () {
         this.wait(blogSub);
-        this.render('blogList');
+        this.render(ReactiveTemplates.get('blogList'));
       },
       data: function () {
         var sort = Meteor.settings.public.blog.sortBy;
@@ -25,7 +26,7 @@
       layoutTemplate: 'blogListLayout',
       action: function () {
         this.wait(blogSub);
-        this.render('blogList');
+        this.render(ReactiveTemplates.get('blogList'));
       },
       data: function () {
         var sort = Meteor.settings.public.blog.sortBy;
@@ -38,7 +39,7 @@
       layoutTemplate: 'blogPostLayout',
       action: function () {
         this.wait(blogSub);
-        this.render('blogPost');
+        this.render(ReactiveTemplates.get('blogPost'));
       },
       data: function () {
         if (this.ready()) {
