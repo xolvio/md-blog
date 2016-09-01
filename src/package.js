@@ -10,7 +10,7 @@ Npm.depends({});
 Package.on_use(function (api) {
 
   // APIs
-  api.use(['meteor-platform@1.2.0', 'less@1.0.11']);
+  api.use(['meteor-platform@1.2.0', 'less@2.7.5']);
   api.use(['spiderable@1.0.5']);
   api.use(['reactive-var@1.0.3'], ['client', 'server']);
   api.use(['iron:router@1.0.0'], ['client', 'server']);
